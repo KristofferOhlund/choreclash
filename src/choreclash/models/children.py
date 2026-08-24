@@ -1,10 +1,10 @@
-from db.db import Base
+from choreclash.db.db import Base
 from typing import List
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy import String, ForeignKey
 from typing import TYPE_CHECKING
 if TYPE_CHECKING:
-    from models.chores import Chore
+    from choreclash.models.chores import Chore
 
 class Child(Base):
     """

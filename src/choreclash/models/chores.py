@@ -1,4 +1,4 @@
-from db.db import Base
+from choreclash.db.db import Base
 from sqlalchemy.orm import Mapped, mapped_column
 from sqlalchemy import String, ForeignKey
 
