@@ -1,10 +1,10 @@
 from choreclash.db.db import Base
-from typing import List
+from typing import List, Optional
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy import String, ForeignKey
 from typing import TYPE_CHECKING
 if TYPE_CHECKING:
-    from choreclash.models.chores import Chore
+    from choreclash.models.chore_template import ChoreTemplate
 
 class Child(Base):
     """
@@ -19,17 +19,19 @@ class Child(Base):
 
     id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
     first_name: Mapped[str] = mapped_column(String(30))
-    last_name: Mapped[str] = mapped_column(String(30))
     parent_id: Mapped[int] = mapped_column(ForeignKey("parent_table.id"))
-    chores: Mapped[List["Chore"]] = relationship(cascade="all, delete")
+    avatar_url: Mapped[Optional[str]] = mapped_column(String(30))
+    chores: Mapped[List["ChoreTemplate"]] = relationship(cascade="all, delete")
 
     def get_chores(self):
          """Return list of chores"""
          return self.chores
 
-    def get_fullname(self):
-          return f"{self.first_name} + {self.last_name}"
+    def get_avatar_url(self):
+         return self.avatar_url
 
-    def __repr__(self) -> str:
-         return f"Kid(id={self.id!r}, firstname={self.first_name!r}, \
-              lastname={self.last_name!r}), chores={self.chores!r})"
+    def get_name(self):
+          return f"{self.first_name}"
+
+    def get_id(self):
+         return self.id

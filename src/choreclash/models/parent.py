@@ -25,11 +25,11 @@ class Parent(Base):
     id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
     first_name: Mapped[str] = mapped_column(String(30))
     last_name: Mapped[str] = mapped_column(String(30))
-    avatar_url: Mapped[str] = mapped_column(String(30))
+    avatar_url: Mapped[Optional[str]] = mapped_column(String(30))
     email: Mapped[str] = mapped_column(String(50))
     password_hash: Mapped[str] = mapped_column()
     created_at: Mapped[datetime] = mapped_column(default=datetime.now)
-    children: Mapped[List["Child"]] = relationship(cascade="all, delete")
+    children: Mapped[List["Child"]] = relationship(cascade="all, delete") # not a column, only for convenience
 
     def get_avatar_url(self):
          return self.avatar_url
