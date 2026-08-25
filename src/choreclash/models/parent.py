@@ -29,7 +29,7 @@ class Parent(Base):
     last_name: Mapped[str] = mapped_column(String(30))
     avatar_url: Mapped[Optional[str]] = mapped_column(String(30))
     email: Mapped[str] = mapped_column(String(50))
-    password_hash: Mapped[str] = mapped_column()
+    password_hash: Mapped[Optional[str]] = mapped_column(String(30))
     created_at: Mapped[datetime] = mapped_column(default=datetime.now)
     children: Mapped[List["Child"]] = relationship(cascade="all, delete") # not a column, only for convenience
 
@@ -47,4 +47,4 @@ class Parent(Base):
 
     def __repr__(self) -> str:
          return f"Parent(id={self.id!r}, firstname={self.first_name!r}, \
-              lastname={self.last_name!r}), email={self.last_name!r}), children={self.children!r})"
+              lastname={self.last_name!r}), email={self.last_name!r}), children={[child.get_name() for child in self.children]})"

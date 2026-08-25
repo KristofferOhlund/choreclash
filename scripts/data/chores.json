@@ -1,0 +1,72 @@
+[
+  {
+    "title": "Ät frukost",
+    "icon": "frukost.png",
+    "description": "Ät en bra frukost.",
+    "is_complete": false,
+    "deadline": null
+  },
+  {
+    "title": "Borsta tänderna",
+    "icon": "borsta_tander.png",
+    "description": "Borsta tänderna i minst 2 minuter.",
+    "is_complete": false,
+    "deadline": null
+  },
+  {
+    "title": "Gör läxorna",
+    "icon": "laxor.png",
+    "description": "Gör alla dina läxor.",
+    "is_complete": false,
+    "deadline": null
+  },
+  {
+    "title": "Städa rummet",
+    "icon": "stada_rummet.png",
+    "description": "Städa ditt rum och håll det rent.",
+    "is_complete": false,
+    "deadline": null
+  },
+  {
+    "title": "Ta ut soporna",
+    "icon": "ta_ut_soporna.png",
+    "description": "Ta ut soporna till soptunnan.",
+    "is_complete": false,
+    "deadline": null
+  },
+  {
+    "title": "Packa väskan",
+    "icon": "packa_vaskan.png",
+    "description": "Packa väskan för skolan.",
+    "is_complete": false,
+    "deadline": null
+  },
+  {
+    "title": "Ta bort disken",
+    "icon": "ta_bort_disken.png",
+    "description": "Ta disken från matbordet.",
+    "is_complete": false,
+    "deadline": null
+  },
+  {
+    "title": "Tvätta händerna",
+    "icon": "tvatta_handerna.png",
+    "description": "Tvätta händerna noggrant.",
+    "is_complete": false,
+    "deadline": null
+  },
+  {
+    "title": "Rasta hunden",
+    "icon": "rasta_hunden.png",
+    "description": "Ta hunden ut för en promenad.",
+    "is_complete": false,
+    "deadline": null
+  },
+  {
+    "title": "Ta på kläderna",
+    "icon": "ta_pa_kläderna.png",
+    "description": "Ta på kläderna innan du går ut.",
+    "is_complete": false,
+    "deadline": null
+  }
+]
