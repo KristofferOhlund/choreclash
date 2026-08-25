@@ -19,7 +19,7 @@ class ChoreTemplate(Base):
     __tablename__ = "chore_template_table"
 
     id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
-    parent_id: Mapped[int] = mapped_column(ForeignKey("parent_table.id"))
+    parent_id: Mapped[Optional[int]] = mapped_column(ForeignKey("parent_table.id"), nullable=True)
     title: Mapped[str] = mapped_column(String(30))
     icon: Mapped[Optional[str]] = mapped_column(String(30))
     description: Mapped[Optional[str]] = mapped_column(String(100))
