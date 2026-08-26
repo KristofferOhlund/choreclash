@@ -6,14 +6,14 @@ class Base(DeclarativeBase):
     pass
 
 class DB:
-    def __init__(self):
-        self.resource = "sqlite:///choreclash.db"
+    def __init__(self, resource="sqlite:///choreclash.db"):
+        self.resource = resource
         self.engine = None
 
     def get_engine(self):
         """Create engine in module scope"""
         if not self.engine:
-            self.engine = create_engine("sqlite:///choreclash.db")
+            self.engine = create_engine(self.resource, echo=True, future=True)
         return self.engine
 
 

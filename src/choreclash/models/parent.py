@@ -3,7 +3,6 @@ from typing import List, Optional
 from sqlalchemy import String
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from datetime import datetime
-from choreclash.models.children import Child
 from typing import TYPE_CHECKING
 if TYPE_CHECKING:
      from choreclash.models.children import Child
