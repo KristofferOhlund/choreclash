@@ -46,3 +46,9 @@ class ChoreTemplate(Base):
 
     def get_deadline(self):
         return self.deadline
+
+    def set_complete(self):
+        self.is_complete = True
+
+    def unset_complete(self):
+        self.is_complete = False
