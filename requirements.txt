@@ -1,3 +1,11 @@
-greenlet==3.5.5
+-e git+ssh://git@github.com/KristofferOhlund/choreclash.git@7525dcea7b14e8dd56fdc3bf7fea0cd101a5405a#egg=choreclash
+exceptiongroup==1.3.1
+greenlet==3.2.5
+iniconfig==2.1.0
+packaging==26.3
+pluggy==1.6.0
+Pygments==2.21.0
+pytest==8.4.2
 SQLAlchemy==2.0.52
+tomli==2.4.1
 typing_extensions==4.16.0
