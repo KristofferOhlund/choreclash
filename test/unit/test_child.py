@@ -1,5 +1,6 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import Session
+
 import choreclash.models as models
 
 def test_parent():
@@ -7,19 +8,19 @@ def test_parent():
     models.Base.metadata.create_all(engine)
 
     with Session(engine) as session:
-        parent = models.Parent(
-            first_name="John",
-            last_name="Doe",
-            email="john.doe@example.com",
+        children = models.Child(
+            first_name="Jane",
+            parent_id=1,
         )
+
         try:
-            session.add(parent)
+            session.add(children)
             session.commit()
         except Exception as e:
             print(f"Error occurred while adding child: {e}")
             session.rollback()
-        retrieved_parent = session.get(models.Parent, parent.id)
 
-        assert retrieved_parent is not None
-        assert retrieved_parent.first_name == "John"
-        assert retrieved_parent.last_name == "Doe"
+        retrieved_children = session.get(models.Child, children.id)
+
+        assert retrieved_children is not None
+        assert retrieved_children.first_name == "Jane"
