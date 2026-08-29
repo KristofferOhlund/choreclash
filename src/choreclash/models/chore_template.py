@@ -27,30 +27,3 @@ class ChoreTemplate(Base):
     description: Mapped[Optional[str]] = mapped_column(String(100))
     is_complete: Mapped[bool] = mapped_column(default=False)
     deadline: Mapped[Optional[datetime]] = mapped_column()
-
-    def get_id(self):
-        return self.id
-
-    def get_parent_id(self):
-        return self.parent_id
-
-    def get_title(self):
-        return self.title
-
-    def get_icon(self):
-        return self.icon
-
-    def get_description(self):
-        return self.description
-
-    def get_is_complete(self):
-        return self.is_complete
-
-    def get_deadline(self):
-        return self.deadline
-
-    def set_complete(self):
-        self.is_complete = True
-
-    def unset_complete(self):
-        self.is_complete = False
