@@ -13,6 +13,10 @@ class ChoreOccurence(Base):
     ChoreOccurence model represents a specific occurrence of a chore assigned to a child.
     It includes details such as the date of the occurrence, completion status,
     and the associated chore assignment.
+
+    is_complete: bool, False default
+    date: Optional|datetime, defaults datetime.today
+    assignment: Chore2Child object
     """
     
     __tablename__ = "chore_occurrence_table"
