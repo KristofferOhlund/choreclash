@@ -1,38 +1,46 @@
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 import choreclash.models as models
+from pytest import fixture
 
-# def test_chore2child_relationship(init):
-#     engine = init
-#     with Session(engine) as session:
-#         chore2child = session.execute(select(models.Chore2Child)).scalar()
-        
-#         assert len(chore2child) == 2
+@fixture
+def session(init):
+    parent = models.Parent(first_name="Kristoffer", last_name="Öhlund", email="kristoffer.ohlund@icloud.com")
 
+    child = models.Child(first_name="Melker", parent=parent)
 
-def test_chore2child_count(init):
-    engine = init
-    with Session(engine) as session:
-        chore2child = session.execute(select(models.Chore2Child)).scalars().all()
-        
-        assert len(chore2child) == 2
+    chore = models.Chore(title="Städa rummet")
 
-def test_add_chore2child(init):
-    engine = init
-    with Session(engine) as session:
-        parent = session.execute(select(models.Parent)).scalar()
-        child = models.Child(id=2, first_name="Krille", parent=parent)
-        chore = models.Chore(title="Ta på kläder", description="Ta på kläder inför skolan")
-        chore2child = models.Chore2Child(child=child, chore=chore)
+    chore2child = models.Chore2Child(child=child, chore=chore)
 
+    with Session(init) as session:
         session.add(chore2child)
         session.commit()
 
-        # Make sure it was created
-        chore2child = session.execute(select(models.Chore2Child)).scalars().all()
-        assert len(chore2child) == 3
+    return session
 
-        created_chore2child = session.scalar(select(models.Chore2Child).where(models.Child.id == child.id))
+def test_chore_creation(session):
+    chore = session.scalar(select(models.Chore))
 
-        assert isinstance(created_chore2child, models.Chore2Child)
+    assert chore.title == "Städa rummet"
+    assert chore.id == 1
+    ## Child is assigned a chore because of chore2child, but occurences are not set
+    assert len(chore.child_assignments) == 1
+
+def test_child_creation(session):
+    child = session.scalar(select(models.Child))
+
+    assert child.first_name == "Melker"
+    assert child.id == 1
+
+def test_parent_creation(session):
+    parent = session.scalars(select(models.Parent)).all()
+
+    assert len(parent) == 1
+
+def test_chore_occurence_empty(session):
+    occurence = session.scalar(select(models.ChoreOccurence))
+
+    assert occurence is None
         
+
