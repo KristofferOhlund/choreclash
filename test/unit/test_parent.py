@@ -1,25 +1,51 @@
-from sqlalchemy import create_engine
+from sqlalchemy import select
 from sqlalchemy.orm import Session
 import choreclash.models as models
+from pytest import fixture
 
-def test_parent():
-    engine = create_engine("sqlite:///test.db", echo=True)
-    models.Base.metadata.create_all(engine)
+@fixture
+def session(init):
+    parent = models.Parent(first_name="Kristoffer", last_name="Öhlund", email="kristoffer.ohlund@gmail.com")
 
-    with Session(engine) as session:
-        parent = models.Parent(
-            first_name="John",
-            last_name="Doe",
-            email="john.doe@example.com",
-        )
-        try:
-            session.add(parent)
-            session.commit()
-        except Exception as e:
-            print(f"Error occurred while adding child: {e}")
-            session.rollback()
-        retrieved_parent = session.get(models.Parent, parent.id)
+    with Session(init) as session:
+        session.add(parent)
+        session.commit()
+        yield session
+        session.delete(parent)
+        session.commit()
 
-        assert retrieved_parent is not None
-        assert retrieved_parent.first_name == "John"
-        assert retrieved_parent.last_name == "Doe"
+def test_parent(session):
+    # Assert
+    parent = session.scalar(select(models.Parent))
+
+    assert parent.first_name == "Kristoffer"
+    assert parent.id == 1
+
+def test_relationship_empty(session):
+    parent = session.scalar(select(models.Parent))
+
+    assert len(parent.children) == 0
+
+def test_relationship_one(session):
+    parent = session.scalar(select(models.Parent))
+
+    child = models.Child(first_name="Melker")
+
+    parent.children.append(child)
+
+    # session.add(child)
+    session.flush()
+
+    # Make sure db is updated
+    parent = session.scalar(select(models.Parent))
+
+    assert len(parent.children) == 1
+    
+    child = session.scalar(
+    select(models.Child)
+    .where(
+        models.Child.id == child.id,
+        models.Child.parent_id == parent.id
+    ))
+
+    assert child.parent.id == parent.id

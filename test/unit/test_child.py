@@ -1,26 +1,35 @@
-from sqlalchemy import create_engine
+from sqlalchemy import select
 from sqlalchemy.orm import Session
-
 import choreclash.models as models
+from pytest import fixture
 
-def test_parent():
-    engine = create_engine("sqlite:///test.db", echo=True)
-    models.Base.metadata.create_all(engine)
+@fixture
+def session(init):
+    parent = models.Parent(first_name="Kristoffer", last_name="Öhlund", email="kristoffer.ohlund@gmail.com")
 
-    with Session(engine) as session:
-        children = models.Child(
-            first_name="Jane",
-            parent_id=1,
-        )
+    child = models.Child(first_name="Melker", parent=parent)
 
-        try:
-            session.add(children)
-            session.commit()
-        except Exception as e:
-            print(f"Error occurred while adding child: {e}")
-            session.rollback()
+    with Session(init) as session:
+        session.add_all([parent, child])
+        session.commit()
+        yield session
+        session.delete(child)
+        session.commit()
 
-        retrieved_children = session.get(models.Child, children.id)
+def test_child(session):
+    child = session.scalar(select(models.Child))
 
-        assert retrieved_children is not None
-        assert retrieved_children.first_name == "Jane"
+    assert child.first_name == "Melker"
+    assert child.id == 1
+    parents = session.scalars(select(models.Parent)).all()
+    assert len(parents) == 1 # make sure parent isn't created twice
+    assert parents[0].id == 1
+
+def test_child_parent_relation(session):
+    child = session.scalar(select(models.Child))
+    assert child.parent.first_name == "Kristoffer"
+
+def test_empty_chore_assignment(session):
+    child = session.scalar(select(models.Child))
+    assert len(child.chore_assignments) == 0
+    

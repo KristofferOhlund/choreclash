@@ -1,25 +1,23 @@
-from sqlalchemy import create_engine
+from sqlalchemy import select
 from sqlalchemy.orm import Session
 import choreclash.models as models
+from pytest import fixture
 
-def test_parent():
-    engine = create_engine("sqlite:///test.db", echo=True)
-    models.Base.metadata.create_all(engine)
+@fixture
+def session(init):
+    chore = models.Chore(title="Städa rummet", description="Städa rummet noggrant")
 
-    with Session(engine) as session:
-        chore = models.Chore(
-            title="Test Chore",
-            description="This is a test chore."
-        )
-        try:
-            session.add(chore)
-            session.commit()
-        except Exception as e:
-            print(f"Error occurred while adding chore: {e}")
-            session.rollback()
+    with Session(init) as session:
+        session.add(chore)
+        session.commit()
+        yield session
+        session.delete(chore)
+        session.commit()
 
-        retrieved_chore = session.get(models.Chore, chore.id)
+def test_chore(session):
+    chore = session.scalar(select(models.Chore))
 
-        assert retrieved_chore is not None
-        assert retrieved_chore.title == "Test Chore"
-        assert retrieved_chore.description == "This is a test chore."
+    assert chore.title == "Städa rummet"
+    assert chore.id == 1
+    assert len(chore.child_assignments) == 0
+
