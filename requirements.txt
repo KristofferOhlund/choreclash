@@ -1,7 +1,13 @@
--e git+ssh://git@github.com/KristofferOhlund/choreclash.git@7525dcea7b14e8dd56fdc3bf7fea0cd101a5405a#egg=choreclash
+blinker==1.9.0
+-e git+ssh://git@github.com/KristofferOhlund/choreclash.git@b7312369b7240a940c4cfc3178724d4998d8919f#egg=choreclash
+click==8.5.0
 exceptiongroup==1.3.1
+Flask==3.1.3
 greenlet==3.2.5
 iniconfig==2.1.0
+itsdangerous==2.2.0
+Jinja2==3.1.6
+MarkupSafe==3.0.3
 packaging==26.3
 pluggy==1.6.0
 Pygments==2.21.0
@@ -9,3 +15,4 @@ pytest==8.4.2
 SQLAlchemy==2.0.52
 tomli==2.4.1
 typing_extensions==4.16.0
+Werkzeug==3.1.8
