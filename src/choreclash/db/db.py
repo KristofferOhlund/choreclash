@@ -10,7 +10,7 @@ class DB:
         self.resource = resource
         self.engine = None
 
-    def get_engine(self):
+    def _get_engine(self):
         """Create engine in module scope"""
         if not self.engine:
             self.engine = create_engine(self.resource, echo=True, future=True)
@@ -18,7 +18,7 @@ class DB:
 
 
     def get_session(self):
-        """return session factory"""
+        """return session factory which creates new session objects on each invocation"""
         if not self.engine:
-            self.get_engine()
+            self._get_engine()
         return sessionmaker(self.engine)

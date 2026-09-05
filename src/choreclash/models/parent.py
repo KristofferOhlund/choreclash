@@ -27,7 +27,7 @@ class Parent(Base):
     first_name: Mapped[str] = mapped_column(String(30))
     last_name: Mapped[str] = mapped_column(String(30))
     avatar_url: Mapped[Optional[str]] = mapped_column(String(30))
-    email: Mapped[str] = mapped_column(String(50))
+    email: Mapped[str] = mapped_column(String(50), unique=True)
     password_hash: Mapped[Optional[str]] = mapped_column(String(30))
     created_at: Mapped[datetime] = mapped_column(default=datetime.now)
     children: Mapped[Optional[List["Child"]]] = relationship(cascade="all, delete") # not a column, only for convenience

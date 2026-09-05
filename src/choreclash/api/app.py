@@ -15,8 +15,6 @@ from choreclash.api.routes.parent_routes import parent_bp
 app = Flask(__name__)
 app.register_blueprint(parent_bp)
 
-db = DB()
-engine = db.get_engine()
 
 
 

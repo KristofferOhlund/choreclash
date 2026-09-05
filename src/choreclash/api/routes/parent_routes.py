@@ -12,11 +12,31 @@ parent_bp = Blueprint(
     url_prefix="/api/parents"
 )
 
-engine = DB().get_engine()
+db = DB()
 
+### GET ###
 
 @parent_bp.get("/")
 def get_parents():
+    with db.get_session() as session:
+        parents = session.scalars(
+            select(Parent)
+        ).all()
+
+        return jsonify([
+            {
+                "id": parent.id,
+                "first_name": parent.first_name,
+                "last_name": parent.last_name,
+                "email": parent.email
+            }
+            for parent in parents
+        ])
+
+
+
+@parent_bp.get("/<int:parent_id>")
+def get_parent_with_id(parent_id):
     with Session(engine) as session:
         parents = session.scalars(
             select(Parent)
@@ -45,7 +65,7 @@ def create_parent():
         password_hash=data.get("password_hash")
     )
 
-    with db.get_session() as session:
+    with Session(engine) as session:
         session.add(parent)
         session.commit()
 
