@@ -1,4 +1,4 @@
-from flask import Blueprint, jsonify, request
+from flask import Blueprint, jsonify, request, abort
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
@@ -9,7 +9,7 @@ from choreclash.models.parent import Parent
 parent_bp = Blueprint(
     "parents",
     __name__,
-    url_prefix="/api/parents"
+    url_prefix="/api/parent"
 )
 
 db = DB()
@@ -20,7 +20,7 @@ db = DB()
 def get_parents():
     with db.get_session() as session:
         parents = session.scalars(
-            select(Parent)
+            select(Parent).order_by(Parent.id)
         ).all()
 
         return jsonify([
@@ -37,20 +37,20 @@ def get_parents():
 
 @parent_bp.get("/<int:parent_id>")
 def get_parent_with_id(parent_id):
-    with Session(engine) as session:
-        parents = session.scalars(
-            select(Parent)
-        ).all()
-
-        return jsonify([
+    with db.get_session() as session:
+        parent = session.get(Parent, parent_id)
+        
+        if parent is None:
+            abort(404)
+    
+        return jsonify(
             {
                 "id": parent.id,
                 "first_name": parent.first_name,
                 "last_name": parent.last_name,
                 "email": parent.email
             }
-            for parent in parents
-        ])
+        ), 200
 
 
 @parent_bp.post("/")
@@ -65,7 +65,7 @@ def create_parent():
         password_hash=data.get("password_hash")
     )
 
-    with Session(engine) as session:
+    with db.get_session()() as session:
         session.add(parent)
         session.commit()
 

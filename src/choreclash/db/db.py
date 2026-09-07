@@ -21,4 +21,5 @@ class DB:
         """return session factory which creates new session objects on each invocation"""
         if not self.engine:
             self._get_engine()
-        return sessionmaker(self.engine)
+        session = sessionmaker(self.engine)
+        return session()

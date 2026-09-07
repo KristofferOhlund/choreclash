@@ -10,10 +10,12 @@ from choreclash.models.chore2child import Chore2Child
 
 
 from choreclash.api.routes.parent_routes import parent_bp
+from choreclash.api.errors.handlers import register_error_handlers
 
 
 app = Flask(__name__)
 app.register_blueprint(parent_bp)
+register_error_handlers(app)
 
 
 
