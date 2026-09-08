@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        {% block title %}ChoreClash{% endblock %}
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/style.css') }}"
+    >
+
+    {% block head %}{% endblock %}
+</head>
+
+<body>
+    <header>
+        <nav>
+            {# <a href="{{ url_for('home.home') }}">
+                ChoreClash
+            </a> #}
+
+            {% if session.get("parent_id") %}
+
+                {# <a href="{{ url_for('home.home') }}">
+                    Home
+                </a>
+
+                <a href="{{ url_for('children.children') }}">
+                    Mina barn
+                </a>
+
+                <a href="{{ url_for('chores.chores') }}">
+                    Sysslor
+                </a>
+
+                <a href="{{ url_for('week.week') }}">
+                    Vecka
+                </a> #}
+
+                <form
+                    method="POST"
+                    action="{{ url_for('auth.logout') }}"
+                >
+                    <button type="submit">
+                        Logga ut
+                    </button>
+                </form>
+
+            {% else %}
+
+                <a href="{{ url_for('auth.login') }}">
+                    Logga in
+                </a>
+
+                <a href="{{ url_for('auth.register') }}">
+                    Registrera
+                </a>
+
+            {% endif %}
+
+        </nav>
+    </header>
+
+
+    <main>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+
+            {% if messages %}
+
+                {% for category, message in messages %}
+
+                    <div class="flash flash-{{ category }}">
+                        {{ message }}
+                    </div>
+
+                {% endfor %}
+
+            {% endif %}
+
+        {% endwith %}
+
+
+        {% block content %}
+        {% endblock %}
+
+    </main>
+
+
+    <footer>
+        <p>
+            &copy; 2026 ChoreClash
+        </p>
+    </footer>
+
+
+    {% block scripts %}
+    {% endblock %}
+
+</body>
+</html>

@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+
+{% block title %}
+    Logga in | ChoreClash
+{% endblock %}
+
+
+{% block content %}
+
+    <section class="auth-container">
+
+        <h1>Logga in</h1>
+
+        <form method="POST">
+
+            <div>
+                <label for="email">
+                    E-post
+                </label>
+
+                <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    required
+                >
+            </div>
+
+
+            <div>
+                <label for="password">
+                    Lösenord
+                </label>
+
+                <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    required
+                >
+            </div>
+
+
+            <button type="submit">
+                Logga in
+            </button>
+
+        </form>
+
+
+        {# <p>
+            Har du inget konto?
+
+            <a href="{{ url_for('auth.register_page') }}">
+                Registrera dig
+            </a>
+        </p> #}
+
+    </section>
+
+{% endblock %}
