@@ -12,7 +12,7 @@
 
         <h1>Logga in</h1>
 
-        <form method="POST">
+        <form method="POST", action="login">
 
             <div>
                 <label for="email">
@@ -49,13 +49,13 @@
         </form>
 
 
-        {# <p>
+        <p>
             Har du inget konto?
 
-            <a href="{{ url_for('auth.register_page') }}">
+            <a href="{{ url_for('auth.register') }}">
                 Registrera dig
             </a>
-        </p> #}
+        </p>
 
     </section>
 
