@@ -51,5 +51,23 @@ def validate_passwords(pass1:str, pass2:str) -> bool:
     return True
 
 
+def validate_string(input_string:str, field_name:str) -> bool:
+    """
+    Validate string input
+
+    Args: input_string: The string to be validated. field_name: The name of the field.
+
+    Returns: True if the string is valid.
+
+    Raises: ValueError if the string is empty or contains only whitespace.
+    """
+    if not input_string or input_string.strip() == "":
+        raise ValueError(f"{field_name} får inte vara tomt.")
+
+    return True
+
+
 if __name__ == "__main__":
     validate_email("kristoffer.ohlund@icloud.com")
+    validate_string("John", "First name")
+    validate_string("Doe", "Last name")

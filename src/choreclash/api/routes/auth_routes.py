@@ -1,7 +1,7 @@
 from flask import (
     Blueprint, render_template, request, flash)
 from choreclash.api.services import auth_service
-from choreclash.api.helpers.validators import validate_email, validate_passwords
+from choreclash.api.helpers.validators import validate_email, validate_passwords, validate_string
 
 auth_bp = Blueprint(
     "auth",
@@ -20,12 +20,17 @@ def login():
 @auth_bp.route("/register", methods=["GET", "POST"])
 def register():
     if request.method == "POST":
+    
+        fname = request.form["first_name"]
+        lname = request.form["last_name"]
         email = request.form["email"]
         pass1 = request.form["password1"]
         pass2 = request.form["password2"]
 
         # verify email
         try:
+            #valid_fname = validate_string(fname, "First name")
+            #valid_lname = validate_string(lname, "Last name")
             valid_email = validate_email(email)
 
             # verify passwords
