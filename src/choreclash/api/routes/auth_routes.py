@@ -1,4 +1,5 @@
-from flask import Blueprint, render_template, request
+from flask import (
+    Blueprint, render_template, request, flash)
 from choreclash.api.services import auth_service
 from choreclash.api.helpers.validators import validate_email, validate_passwords
 
@@ -24,16 +25,20 @@ def register():
         pass2 = request.form["password2"]
 
         # verify email
-        valid_email = validate_email(email)
+        try:
+            valid_email = validate_email(email)
 
-        # verify passwords
-        valid_passwords = validate_passwords(pass1, pass2)
+            # verify passwords
+            valid_passwords = validate_passwords(pass1, pass2)
 
-        if valid_email and validate_passwords:
-            # create user
-            
-            print("användare registrerar", email, pass1)
-                
+            # Register user
+            print("registrerar användare")
+
+        except ValueError as e:
+            flash(
+                str(e),
+                "error"
+                )
 
     return render_template("register.html")
 

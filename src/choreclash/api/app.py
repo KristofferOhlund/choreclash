@@ -1,13 +1,23 @@
+from os import getenv
 from flask import Flask
+from dotenv import load_dotenv
 
 # blueprints
 from choreclash.api.routes.parent_routes import parent_bp
 from choreclash.api.routes.auth_routes import auth_bp
 from choreclash.api.errors.handlers import register_error_handlers
 
+# Set .env efile in os.environ
+load_dotenv()
+secret_key = getenv("SECRET_KEY")
+
+# Config App
 app = Flask(__name__)
+app.config["SECRET_KEY"] = secret_key
 app.register_blueprint(parent_bp)
 app.register_blueprint(auth_bp)
+
+# Register Handlers
 register_error_handlers(app)
 
 # Flask - login security

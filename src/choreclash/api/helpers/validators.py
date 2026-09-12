@@ -17,7 +17,7 @@ def validate_email(email:str) -> bool:
     if not email_match:
         raise ValueError("Vänlig ange en giltig e-post")
 
-def validate_password(pass1:str, pass2:str) -> bool:
+def validate_passwords(pass1:str, pass2:str) -> bool:
     """
     Validate password
 
