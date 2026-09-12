@@ -1,49 +1,43 @@
 from flask import (
-    Blueprint, render_template, request, flash)
+    Blueprint, render_template, request, flash, url_for)
 from choreclash.api.services import auth_service
-from choreclash.api.helpers.validators import validate_email, validate_passwords, validate_string
+from choreclash.db.db import DB
+
 
 auth_bp = Blueprint(
     "auth",
     __name__
 )
 
+db = DB()
+
 @auth_bp.route("/login", methods=["GET", "POST"])
 def login():
-    print("user tries to login")
     if request.method == "POST":
-        # hantera login
-        pass
+        try:
+            with db.get_session() as session:
+                user = auth_service.authenticate_user(session, request.form)
+        except ValueError as e:
+            flash(
+                str(e),
+                "error"
+                )
+        return url_for("user.home")
 
     return render_template("login.html")
 
 @auth_bp.route("/register", methods=["GET", "POST"])
 def register():
     if request.method == "POST":
-    
-        fname = request.form["first_name"]
-        lname = request.form["last_name"]
-        email = request.form["email"]
-        pass1 = request.form["password1"]
-        pass2 = request.form["password2"]
-
-        # verify email
         try:
-            #valid_fname = validate_string(fname, "First name")
-            #valid_lname = validate_string(lname, "Last name")
-            valid_email = validate_email(email)
-
-            # verify passwords
-            valid_passwords = validate_passwords(pass1, pass2)
-
-            # Register user
-            print("registrerar användare")
-
+            with db.get_session() as session:
+                auth_service.create_user(session, request.form)
         except ValueError as e:
             flash(
                 str(e),
                 "error"
                 )
+        return url_for("auth.login")
 
     return render_template("register.html")
 
