@@ -25,7 +25,7 @@ def validate_passwords(pass1:str, pass2:str) -> bool:
     - Have at least one uppercase letter
     - Have at least one lowercase letter
     - Have at least one special character ($, @, #, %)
-    - Have a minumum of 12 characters
+    - Have a minumum of 10 characters
     
     Args: pass1: The first password. pass2: The second password. 
 
@@ -35,7 +35,7 @@ def validate_passwords(pass1:str, pass2:str) -> bool:
         ValueError: If the passwords do not match. 
         ValueError: If the password does not meet the requirements.
     """
-    password_pattern = r"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$#%])[A-Za-z\d@$#%]{12,}$"
+    password_pattern = r"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*\W)[A-Za-z\d\W]{10,}$"
 
     if not pass1 == pass2:
         raise ValueError("Lösenorden matchar inte")
@@ -43,9 +43,9 @@ def validate_passwords(pass1:str, pass2:str) -> bool:
     password_match = re.match(password_pattern, pass1)
     if not password_match:
         raise ValueError(
-            "Lösenordet måste innehålla minst 12 tecken, "
+            "Lösenordet måste innehålla minst 10 tecken, "
             "en stor bokstav, en liten bokstav, en siffra "
-            "och ett specialtecken (@, $, # eller %)."
+            "och ett specialtecken (@, $, #, ! eller %)."
         )
 
     return True
