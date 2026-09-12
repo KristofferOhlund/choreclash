@@ -15,6 +15,30 @@
         <form method="POST" action="{{ url_for('auth.register') }}">
 
             <div>
+                <label for="first_name">
+                    Förnamn
+                </label>
+
+                <input
+                    type="text"
+                    id="first_name"
+                    name="first_name"
+                    required
+                >
+            </div>
+            <div>
+                <label for="last_name">
+                    Efternamn
+                </label>
+
+                <input
+                    type="text"
+                    id="last_name"
+                    name="last_name"
+                    required
+                >
+            </div>
+            <div>
                 <label for="email">
                     E-post
                 </label>
@@ -26,7 +50,6 @@
                     required
                 >
             </div>
-
 
             <div>
                 <label for="password">
@@ -44,7 +67,7 @@
 
             <div>
                 <label for="password">
-                    Lösenord
+                    Verifiera Lösenord
                 </label>
 
                 <input
