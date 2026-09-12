@@ -6,7 +6,7 @@ from sqlalchemy import inspect
 
 # Create all tables from ORM
 db = DB()
-engine = db.get_engine()
+engine = db._get_engine()
 Base.metadata.create_all(engine)
 
 # Make sure they are created
