@@ -10,6 +10,7 @@ from choreclash.api.errors.handlers import register_error_handlers
 # Set .env efile in os.environ
 load_dotenv()
 secret_key = getenv("SECRET_KEY")
+print(secret_key)
 
 # Config App
 app = Flask(__name__)

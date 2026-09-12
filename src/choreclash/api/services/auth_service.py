@@ -2,10 +2,15 @@
 Auth service module for user (parent) registration and authentication.
 """
 
+import email
+
+from flask import session
+
 from choreclash.api.helpers.validators import validate_email, validate_passwords, validate_string
 from choreclash.models.parent import Parent
+from choreclash.db.db import DB
 
-def create_user(session, form_data):
+def create_user(form_data):
     """
     Create a new user in the database.
 
@@ -31,16 +36,18 @@ def create_user(session, form_data):
     # Register user
     parent = Parent(first_name=fname, last_name=lname, email=email, password_hash=pass1)
     try:
-        session.add(parent)
-        session.commit()
+        db = DB()
+        with db.get_session() as session:
+            session.add(parent)
+            session.commit()
         print(f"User {fname} {lname} registered successfully.")
     except Exception as e:
-        session.rollback()
+        print(f"Error occurred while registering user: {e}")
         raise e
     
     print("registrerar användare")
 
-def authenticate_user(session, form_data):
+def authenticate_user(form_data):
     """
     Authenticate a user based on the provided form data.
 
@@ -59,7 +66,9 @@ def authenticate_user(session, form_data):
     validate_string(password, "Password")
 
     # Authenticate user
-    parent = session.query(Parent).filter_by(email=email).first()
+    db = DB()
+    with db.get_session() as session:
+        parent = session.query(Parent).filter_by(email=email).first()
     if parent is None or parent.password_hash != password:
         raise ValueError("Invalid email or password.")
 

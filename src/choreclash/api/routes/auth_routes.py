@@ -1,6 +1,7 @@
 from flask import (
-    Blueprint, render_template, request, flash, url_for)
+    Blueprint, render_template, request, flash, url_for, redirect, session)
 from choreclash.api.services import auth_service
+from choreclash.api.routes import parent_routes
 from choreclash.db.db import DB
 
 
@@ -15,14 +16,14 @@ db = DB()
 def login():
     if request.method == "POST":
         try:
-            with db.get_session() as session:
-                user = auth_service.authenticate_user(session, request.form)
+            user = auth_service.authenticate_user(request.form)
+            session["user_id"] = user.id
         except ValueError as e:
             flash(
                 str(e),
                 "error"
                 )
-        return url_for("user.home")
+        return redirect(url_for("parents.home"))
 
     return render_template("login.html")
 
@@ -30,8 +31,7 @@ def login():
 def register():
     if request.method == "POST":
         try:
-            with db.get_session() as session:
-                auth_service.create_user(session, request.form)
+            auth_service.create_user(request.form)
         except ValueError as e:
             flash(
                 str(e),
@@ -43,5 +43,6 @@ def register():
 
 @auth_bp.route("/logout")
 def logout():
+    session.clear()
     return render_template("logout.html")
 
