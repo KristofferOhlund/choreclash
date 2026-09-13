@@ -4,7 +4,7 @@ import choreclash.models as models
 import json
 
 # Get engine object
-engine = DB().get_engine()
+engine = DB()._get_engine()
 
 # DML (Data Manipulation Language) = datan (INSERT, UPDATE, DELETE, SELECT)
 
