@@ -1,62 +1,68 @@
 {% extends "base.html" %}
 
-
-{% block title %}
-    Logga in | ChoreClash
-{% endblock %}
-
+{% block title %}Logga in – ChoreClash{% endblock %}
 
 {% block content %}
 
-    <section class="auth-container">
+<div class="game-card">
 
-        <h1>Logga in</h1>
+<div class="game-icon">
+    ⚔️
+</div>
 
-        <form method="POST", action="login">
+<h1>LOGGA IN</h1>
 
-            <div>
-                <label for="email">
-                    E-post
-                </label>
+<p>
+    Logga in för att se familjens uppdrag och veckans utmaningar.
+</p>
 
-                <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    required
-                >
-            </div>
+<form method="POST" class="game-form">
 
+    <div class="form-group">
+        <label for="email">E-post</label>
 
-            <div>
-                <label for="password">
-                    Lösenord
-                </label>
+        <input
+            type="email"
+            id="email"
+            name="email"
+            class="game-input"
+            required
+            autocomplete="email"
+        >
+    </div>
 
-                <input
-                    type="password"
-                    id="password"
-                    name="password"
-                    required
-                >
-            </div>
+    <div class="form-group">
+        <label for="password">Lösenord</label>
 
+        <input
+            type="password"
+            id="password"
+            name="password"
+            class="game-input"
+            required
+            autocomplete="current-password"
+        >
+    </div>
 
-            <button type="submit">
-                Logga in
-            </button>
+    <button
+        type="submit"
+        class="game-button primary"
+    >
+        LOGGA IN
+    </button>
 
-        </form>
+</form>
 
+<p>
+    Har du inget konto?
+    <a
+        href="{{ url_for('auth.register') }}"
+        class="game-link"
+    >
+        SKAPA KONTO
+    </a>
+</p>
 
-        <p>
-            Har du inget konto?
-
-            <a href="{{ url_for('auth.register') }}">
-                Registrera dig
-            </a>
-        </p>
-
-    </section>
+</div>
 
 {% endblock %}

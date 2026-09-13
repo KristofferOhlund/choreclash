@@ -7,7 +7,7 @@ from choreclash.api.services import parent_service
 
 
 parent_bp = Blueprint(
-    "parents",
+    "parent",
     __name__,
 )
 
@@ -24,4 +24,3 @@ def home():
     parent = parent_service.get_parent(parent_id)
 
     return render_template("home.html", parent=parent)
-    

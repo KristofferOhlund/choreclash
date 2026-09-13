@@ -1,100 +1,132 @@
 {% extends "base.html" %}
 
-
 {% block title %}
-    Logga in | ChoreClash
+Registrera | ChoreClash
 {% endblock %}
-
 
 {% block content %}
 
-    <section class="auth-container">
+<div class="game-card">
 
-        <h1>Registrera</h1>
+<div class="game-icon">
+    🛡️
+</div>
 
-        <form method="POST" action="{{ url_for('auth.register') }}">
+<h1>REGISTRERA</h1>
 
-            <div>
-                <label for="first_name">
-                    Förnamn
-                </label>
+<p>
+    Skapa ditt konto och börja organisera familjens uppdrag.
+</p>
 
-                <input
-                    type="text"
-                    id="first_name"
-                    name="first_name"
-                    required
-                >
-            </div>
-            <div>
-                <label for="last_name">
-                    Efternamn
-                </label>
+<form
+    method="POST"
+    action="{{ url_for('auth.register') }}"
+    class="game-form"
+>
 
-                <input
-                    type="text"
-                    id="last_name"
-                    name="last_name"
-                    required
-                >
-            </div>
-            <div>
-                <label for="email">
-                    E-post
-                </label>
+    <div class="form-group">
+        <label for="first_name">
+            Förnamn
+        </label>
 
-                <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    required
-                >
-            </div>
-
-            <div>
-                <label for="password">
-                    Lösenord
-                </label>
-
-                <input
-                    type="password"
-                    id="password"
-                    name="password"
-                    required
-                    min="12"
-                >
-            </div>
-
-            <div>
-                <label for="password">
-                    Verifiera Lösenord
-                </label>
-
-                <input
-                    type="password"
-                    id="confirm_password"
-                    name="confirm_password"
-                    required
-                    min="12"
-                >
-            </div>
+        <input
+            type="text"
+            id="first_name"
+            name="first_name"
+            class="game-input"
+            required
+            autocomplete="given-name"
+        >
+    </div>
 
 
-            <button type="submit">
-                Registrera
-            </button>
+    <div class="form-group">
+        <label for="last_name">
+            Efternamn
+        </label>
 
-        </form>
+        <input
+            type="text"
+            id="last_name"
+            name="last_name"
+            class="game-input"
+            required
+            autocomplete="family-name"
+        >
+    </div>
 
 
-        <p>
-            Redan medlem?
+    <div class="form-group">
+        <label for="email">
+            E-post
+        </label>
 
-            <a href="{{ url_for('auth.login') }}">
-                Logga in!
-            </a>
-        </p>
+        <input
+            type="email"
+            id="email"
+            name="email"
+            class="game-input"
+            required
+            autocomplete="email"
+        >
+    </div>
 
-    </section>
+
+    <div class="form-group">
+        <label for="password">
+            Lösenord
+        </label>
+
+        <input
+            type="password"
+            id="password"
+            name="password"
+            class="game-input"
+            required
+            minlength="12"
+            autocomplete="new-password"
+        >
+    </div>
+
+
+    <div class="form-group">
+        <label for="confirm_password">
+            Verifiera lösenord
+        </label>
+
+        <input
+            type="password"
+            id="confirm_password"
+            name="confirm_password"
+            class="game-input"
+            required
+            minlength="12"
+            autocomplete="new-password"
+        >
+    </div>
+
+
+    <button
+        type="submit"
+        class="game-button primary"
+    >
+        SKAPA KONTO
+    </button>
+
+</form>
+
+
+<p>
+    Redan medlem?
+
+    <a
+        href="{{ url_for('auth.login') }}"
+        class="game-link"
+    >
+        LOGGA IN
+    </a>
+</p>
+
+</div>
 
 {% endblock %}

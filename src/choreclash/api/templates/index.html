@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+
+{% block title %}ChoreClash{% endblock %}
+
+{% block content %}
+
+<section>
+
+    <div class="game-logo">
+        <span>CHORE</span><strong>CLASH</strong>
+    </div>
+
+    <p class="game-tagline">
+        Gör vardagens sysslor till ett spel.
+    </p>
+
+
+    <div class="game-card">
+
+        <div class="game-icon">
+            ⚔️
+        </div>
+
+        <h1>Vem klarar veckans uppdrag?</h1>
+
+        <p>
+            ChoreClash gör det roligare för hela familjen att hålla
+            koll på sysslor, uppdrag och dagens utmaningar.
+        </p>
+
+        <div class="button-group">
+
+            <a
+                href="{{ url_for('auth.login') }}"
+                class="game-button primary"
+            >
+                LOGGA IN
+            </a>
+
+            <a
+                href="{{ url_for('auth.register') }}"
+                class="game-button secondary"
+            >
+                SKAPA KONTO
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <div class="features">
+
+        <div class="feature">
+
+            <span class="feature-icon">
+                ⚔️
+            </span>
+
+            <div>
+                <h3>Uppdrag</h3>
+
+                <p>
+                    Ge varje barn sina egna uppdrag.
+                </p>
+            </div>
+
+        </div>
+
+
+        <div class="feature">
+
+            <span class="feature-icon">
+                🏆
+            </span>
+
+            <div>
+                <h3>Veckans utmaning</h3>
+
+                <p>
+                    Se vad som behöver göras varje dag.
+                </p>
+            </div>
+
+        </div>
+
+
+        <div class="feature">
+
+            <span class="feature-icon">
+                ⭐
+            </span>
+
+            <div>
+                <h3>Clash!</h3>
+
+                <p>
+                    Gör vardagen lite roligare.
+                </p>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

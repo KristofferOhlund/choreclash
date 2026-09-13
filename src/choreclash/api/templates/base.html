@@ -21,68 +21,82 @@
 </head>
 
 <body>
-    <header>
-        <nav>
-            {# <a href="{{ url_for('home.home') }}">
-                ChoreClash
-            </a> #}
 
+    <header class="site-header">
+        <nav class="site-nav">
             {% if session.get("parent_id") %}
-
-                {# <a href="{{ url_for('home.home') }}">
-                    Home
-                </a>
-
-                <a href="{{ url_for('children.children') }}">
-                    Mina barn
-                </a>
-
-                <a href="{{ url_for('chores.chores') }}">
-                    Sysslor
-                </a>
-
-                <a href="{{ url_for('week.week') }}">
-                    Vecka
-                </a> #}
-
-                <form
-                    method="POST"
-                    action="{{ url_for('auth.logout') }}"
+                <a
+                    href="{{ url_for('parent.home') }}"
+                    class="site-logo"
                 >
-                    <button type="submit">
-                        Logga ut
-                    </button>
-                </form>
-
+                    CHORE<span>CLASH</span>
+                </a>
             {% else %}
-
-                <a href="{{ url_for('auth.login') }}">
-                    Logga in
+                <a
+                    href="{{ url_for('index.index') }}"
+                    class="site-logo"
+                >
+                    CHORE<span>CLASH</span>
                 </a>
-
-                <a href="{{ url_for('auth.register') }}">
-                    Registrera
-                </a>
-
             {% endif %}
+
+            <div class="nav-links">
+
+                {% if session.get("parent_id") %}
+
+                    <form
+                        method="POST"
+                        action="{{ url_for('auth.logout') }}"
+                    >
+                        <button
+                            type="submit"
+                            class="game-button secondary nav-button"
+                        >
+                            LOGGA UT
+                        </button>
+                    </form>
+
+                {% else %}
+
+                    <a
+                        href="{{ url_for('auth.login') }}"
+                        class="game-button secondary nav-button"
+                    >
+                        LOGGA IN
+                    </a>
+
+                    <a
+                        href="{{ url_for('auth.register') }}"
+                        class="game-button primary nav-button"
+                    >
+                        REGISTRERA
+                    </a>
+
+                {% endif %}
+
+            </div>
 
         </nav>
     </header>
 
 
-    <main>
+    <main class="site-main">
 
         {% with messages = get_flashed_messages(with_categories=true) %}
 
             {% if messages %}
 
-                {% for category, message in messages %}
+                <div class="flash-container">
 
-                    <div class="flash flash-{{ category }}">
-                        {{ message }}
-                    </div>
+                    {% for category, message in messages %}
 
-                {% endfor %}
+                        <div class="flash flash-{{ category }}">
+                            {{ message }}
+                        </div>
+
+                    {% endfor %}
+
+                </div>
 
             {% endif %}
 
@@ -95,7 +109,7 @@
     </main>
 
 
-    <footer>
+    <footer class="site-footer">
         <p>
             &copy; 2026 ChoreClash
         </p>

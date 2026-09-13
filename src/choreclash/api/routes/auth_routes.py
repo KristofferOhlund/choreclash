@@ -23,7 +23,7 @@ def login():
                 str(e),
                 "error"
                 )
-        return redirect(url_for("parents.home"))
+        return redirect(url_for("parent.home"))
 
     return render_template("login.html")
 
@@ -46,5 +46,4 @@ def logout():
     session.clear()
     flash("You have been logged out.", "success")
     return redirect(url_for("auth.login"))
-    return render_template("logout.html")
 
