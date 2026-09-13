@@ -16,8 +16,8 @@ db = DB()
 def login():
     if request.method == "POST":
         try:
-            user = auth_service.authenticate_user(request.form)
-            session["user_id"] = user.id
+            parent = auth_service.authenticate_user(request.form)
+            session["parent_id"] = parent.id
         except ValueError as e:
             flash(
                 str(e),
