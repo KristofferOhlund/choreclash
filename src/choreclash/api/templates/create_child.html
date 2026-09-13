@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+{% block title %}
+Skapa Uppgift | ChoreClash
+{% endblock %}
+
+{% block content %}
+
+<div class="game-card">
+
+<div class="game-icon">
+    🛡️
+</div>
+
+<h1>SKAPA FAMILJEMEDLEM</h1>
+
+<p>
+    Skapa en ny familjemedlem.
+</p>
+
+<form
+    method="POST"
+    action="{{ url_for('child.create_child') }}"
+    class="game-form"
+>
+
+    <div class="form-group">
+        <label for="first_name">
+            Förnamn
+        </label>
+
+        <input
+            type="text"
+            id="first_name"
+            name="first_name"
+            class="game-input"
+            required
+            autocomplete="given-name"
+            placeholder="Viktor"
+        >
+    </div>
+
+    <div class="form-group">
+        <label for="avatar_url">
+            Avatar (emoji)
+        </label>
+
+        <input
+            type="text"
+            id="avatar_url"
+            name="avatar_url"
+            class="game-input"
+            required
+            autocomplete="avatar-url"
+            placeholder="Exempel: 🧹"
+        >
+    </div>
+
+    <button
+        type="submit"
+        class="game-button primary"
+    >
+        SKAPA FAMILJEMEDLEM
+    </button>
+
+</form>
+
+</div>
+
+{% endblock %}
