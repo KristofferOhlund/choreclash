@@ -15,5 +15,10 @@ db = DB()
 
 @index_bp.get("/")
 def index():
+    parent_id = session.get("parent_id")
+    if parent_id:
+        # get parent object from database
+        parent = parent_service.get_parent(parent_id)
+        return render_template("canvas.html", parent=parent)
     return render_template("index.html")
     
