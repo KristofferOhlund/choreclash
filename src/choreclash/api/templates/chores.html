@@ -22,18 +22,13 @@ Uppgifter | ChoreClash
 
         <div class="button-group">
 
-            <a href="#" class="game-button primary">
+            <a href="{{ url_for('chores.create') }}" class="game-button primary">
                 + SKAPA NY UPPGIFT
             </a>
 
         </div>
 
-    </div>
-
-
-    <div class="game-card">
-
-        <h2>BEFINTLIGA UPPGIFTER</h2>
+        <hr class="game-divider">
 
         {% if chores %}
 
@@ -75,7 +70,8 @@ Uppgifter | ChoreClash
 
                             <div class="table-actions">
 
-                                <a href="{{ url_for('chores.edit', chore_id=chore.id) }}" class="game-button secondary table-button">
+                                <a href="{{ url_for('chores.edit', chore_id=chore.id) }}"
+                                    class="game-button secondary table-button">
                                     ÄNDRA
                                 </a>
 

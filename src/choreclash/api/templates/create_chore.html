@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block title %}
-Uppdatera Uppgift | ChoreClash
+Skapa Uppgift | ChoreClash
 {% endblock %}
 
 {% block content %}
@@ -12,15 +12,15 @@ Uppdatera Uppgift | ChoreClash
     🛡️
 </div>
 
-<h1>UPPDATERA UPPGIFT</h1>
+<h1>SKAPA UPPGIFT</h1>
 
 <p>
-    Uppdatera informationen om din uppgift.
+    Skapa en ny uppgift för din familj.
 </p>
 
 <form
     method="POST"
-    action="{{ url_for('chores.edit', chore_id=chore.id) }}"
+    action="{{ url_for('chores.create') }}"
     class="game-form"
 >
 
@@ -36,7 +36,7 @@ Uppdatera Uppgift | ChoreClash
             class="game-input"
             required
             autocomplete="given-name"
-            value="{{chore.title}}"
+            placeholder="Exempel: Städa rummet"
         >
     </div>
 
@@ -53,7 +53,7 @@ Uppdatera Uppgift | ChoreClash
             class="game-input"
             required
             autocomplete="family-name"
-            value="{{chore.description}}"
+            placeholder="Exempel: Plocka upp leksaker och dammsug golvet"
         >
     </div>
 
@@ -70,7 +70,7 @@ Uppdatera Uppgift | ChoreClash
             class="game-input"
             required
             autocomplete="icon"
-            value="{{chore.icon}}"
+            placeholder="Exempel: 🧹"
         >
     </div>
 
@@ -78,7 +78,7 @@ Uppdatera Uppgift | ChoreClash
         type="submit"
         class="game-button primary"
     >
-        UPPDATERA UPPGIFT
+        SKAPA UPPGIFT
     </button>
 
 </form>

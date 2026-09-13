@@ -39,6 +39,20 @@ def edit(chore_id):
     chore = chore_service.get_chore(chore_id)
     return render_template("edit_chore.html", chore=chore)
 
+@chores_bp.route("/chores/create", methods=["GET", "POST"])
+def create():
+    parent_id = session.get("parent_id")
+    if not parent_id:
+        flash("You must be logged in to access this page.", "error")
+        return redirect(url_for("auth.login"))
+
+    if request.method == "POST":
+        chore_service.create_chore(request.form)
+        flash("Chore created successfully.", "success")
+        return redirect(url_for("chores.chores"))
+
+    return render_template("create_chore.html")
+
 
 @chores_bp.route("/chores/<int:chore_id>/delete", methods=["POST"])
 def delete(chore_id):
@@ -50,5 +64,7 @@ def delete(chore_id):
     chore_service.delete_chore(chore_id)
     flash("Chore deleted successfully.", "success")
     return redirect(url_for("chores.chores"))
+
+
 
 

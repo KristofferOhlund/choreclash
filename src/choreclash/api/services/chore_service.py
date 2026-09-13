@@ -33,7 +33,6 @@ def get_chores():
         chores = db_session.query(Chore).all()
         return chores
 
-
 def update_chore(chore_id: str, updated_data: dict):
     """
     Update a chore
@@ -50,7 +49,6 @@ def update_chore(chore_id: str, updated_data: dict):
                 setattr(chore, key, value)
             db_session.commit()
 
-
 def delete_chore(chore_id: str):
     """
     Delete a chore
@@ -64,3 +62,20 @@ def delete_chore(chore_id: str):
         if chore:
             db_session.delete(chore)
             db_session.commit()
+
+def create_chore(chore_data: dict):
+    """
+    Create a new chore
+
+    Args:
+        chore_data (dict): A dictionary containing the chore data.
+    """
+    db = DB()
+    try:
+        with db.get_session() as db_session:
+            new_chore = Chore(**chore_data)
+            db_session.add(new_chore)
+            db_session.commit()
+    except Exception as e:
+        print(f"Error creating chore: {e}")
+        session.rollback()
