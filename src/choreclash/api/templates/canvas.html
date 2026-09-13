@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+
+{% block title %}
+Dashboard | ChoreClash
+{% endblock %}
+
+{% block content %}
+
+<section>
+
+    <div class="game-card">
+
+        <div class="game-icon">
+            🏆
+        </div>
+
+        <h1>VECKANS UPPDRAG</h1>
+
+        <p>
+            Här ser du familjens uppdrag och vad som behöver göras idag.
+        </p>
+
+        <div class="button-group">
+
+            <a href="#" class="game-button primary">
+                NYTT UPPDRAG
+            </a>
+
+            <a href="#" class="game-button secondary">
+                HANTERA BARN
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <div class="features">
+
+        <a href="{{ url_for('chores.chores') }}" class="feature game-link" dislay="block">
+            <span class="feature-icon">
+                ⚔️
+            </span>
+
+            <div>
+                <h3>Uppdrag</h3>
+                <p>
+                    Se och hantera familjens uppdrag.
+                </p>
+            </div>
+        </a>
+
+        <a href="#" class="feature game-link" dislay="block">
+            <span class="feature-icon">
+                🏆
+            </span>
+            <div>
+                <h3>Veckans status</h3>
+                <p>
+                    Följ hur veckan går för varje barn.
+                </p>
+            </div>
+        </a>
+        
+        <a href="#" class="feature game-link" dislay="block">
+            <span class="feature-icon">
+                ⭐
+            </span>
+            <div>
+                <h3>Framsteg</h3>
+                <p>
+                    Klara uppdrag och samla poäng.
+                </p>
+            </div>
+        </a>
+    </div>
+</section>
+
+{% endblock %}

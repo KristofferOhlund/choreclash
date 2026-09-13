@@ -1,0 +1,126 @@
+{% extends "base.html" %}
+
+{% block title %}
+Uppgifter | ChoreClash
+{% endblock %}
+
+{% block content %}
+
+<section>
+
+    <div class="game-card">
+
+        <div class="game-icon">
+            ⚔️
+        </div>
+
+        <h1>UPPGIFTER</h1>
+
+        <p>
+            Här hanterar du de uppgifter som kan tilldelas familjens barn.
+        </p>
+
+        <div class="button-group">
+
+            <a href="#" class="game-button primary">
+                + SKAPA NY UPPGIFT
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <div class="game-card">
+
+        <h2>BEFINTLIGA UPPGIFTER</h2>
+
+        {% if chores %}
+
+        <div class="table-container">
+
+            <table class="game-table">
+
+                <thead>
+                    <tr>
+                        <th>Uppgift</th>
+                        <th>Beskrivning</th>
+                        <th>Åtgärder</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    {% for chore in chores %}
+
+                    <tr>
+
+                        <td>
+                            {% if chore.icon %}
+                            <span class="table-icon">
+                                {{ chore.icon }}
+                            </span>
+                            {% endif %}
+
+                            <strong>
+                                {{ chore.title }}
+                            </strong>
+                        </td>
+
+                        <td>
+                            {{ chore.description or "-" }}
+                        </td>
+
+                        <td>
+
+                            <div class="table-actions">
+
+                                <a href="{{ url_for('chores.edit', chore_id=chore.id) }}" class="game-button secondary table-button">
+                                    ÄNDRA
+                                </a>
+
+                                <form method="POST" action="{{ url_for('chores.delete', chore_id=chore.id) }}">
+
+                                    <button type="submit" class="game-button danger table-button">
+                                        TA BORT
+                                    </button>
+
+                                </form>
+
+                            </div>
+
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+        {% else %}
+
+        <div class="empty-state">
+
+            <span class="empty-state-icon">
+                📜
+            </span>
+
+            <h3>Inga uppgifter ännu</h3>
+
+            <p>
+                Skapa din första uppgift för att komma igång.
+            </p>
+
+        </div>
+
+        {% endif %}
+
+    </div>
+
+</section>
+
+{% endblock %}

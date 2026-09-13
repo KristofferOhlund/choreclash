@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+
+{% block title %}
+Registrera | ChoreClash
+{% endblock %}
+
+{% block content %}
+
+<div class="game-card">
+
+<div class="game-icon">
+    🛡️
+</div>
+
+<h1>UPPDATERA UPPGIFT</h1>
+
+<p>
+    Uppdatera informationen om din uppgift.
+</p>
+
+<form
+    method="POST"
+    action="{{ url_for('chores.edit', chore_id=chore.id) }}"
+    class="game-form"
+>
+
+    <div class="form-group">
+        <label for="title">
+            Titel
+        </label>
+
+        <input
+            type="text"
+            id="title"
+            name="title"
+            class="game-input"
+            required
+            autocomplete="given-name"
+            value="{{chore.title}}"
+        >
+    </div>
+
+
+    <div class="form-group">
+        <label for="description">
+            Beskrivning
+        </label>
+
+        <input
+            type="text"
+            id="description"
+            name="description"
+            class="game-input"
+            required
+            autocomplete="family-name"
+            value="{{chore.description}}"
+        >
+    </div>
+
+
+    <div class="form-group">
+        <label for="icon">
+            Ikon
+        </label>
+
+        <input
+            type="icon"
+            id="icon"
+            name="icon"
+            class="game-input"
+            required
+            autocomplete="icon"
+            value="{{chore.icon}}"
+        >
+    </div>
+
+    <button
+        type="submit"
+        class="game-button primary"
+    >
+        UPPDATERA UPPGIFT
+    </button>
+
+</form>
+
+</div>
+
+{% endblock %}
