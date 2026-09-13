@@ -41,8 +41,10 @@ def register():
 
     return render_template("register.html")
 
-@auth_bp.route("/logout")
+@auth_bp.route("/logout", methods=["GET", "POST"])
 def logout():
     session.clear()
+    flash("You have been logged out.", "success")
+    return redirect(url_for("auth.login"))
     return render_template("logout.html")
 
