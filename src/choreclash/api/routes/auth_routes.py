@@ -23,7 +23,7 @@ def login():
                 str(e),
                 "error"
                 )
-        return redirect(url_for("parent.home"))
+        return redirect(url_for("parent.canvas"))
 
     return render_template("login.html")
 

@@ -13,8 +13,8 @@ parent_bp = Blueprint(
 
 db = DB()
 
-@parent_bp.get("/home")
-def home():
+@parent_bp.get("/canvas")
+def canvas():
     parent_id = session.get("parent_id")
     if not parent_id:
         flash("You must be logged in to access this page.", "error")
@@ -23,4 +23,4 @@ def home():
     # get parent object from database
     parent = parent_service.get_parent(parent_id)
 
-    return render_template("home.html", parent=parent)
+    return render_template("canvas.html", parent=parent)
