@@ -20,7 +20,7 @@ def canvas():
         flash("You must be logged in to access this page.", "error")
         return redirect(url_for("auth.login"))
 
-    # get parent object from database
-    parent = parent_service.get_parent(parent_id)
+    # get children of the parent
+    children = parent_service.get_children(parent_id)
 
-    return render_template("canvas.html", parent=parent)
+    return render_template("canvas.html", children=children)
