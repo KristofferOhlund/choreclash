@@ -7,6 +7,7 @@ from choreclash.api.routes.parent_routes import parent_bp
 from choreclash.api.routes.auth_routes import auth_bp
 from choreclash.api.routes.index_route import index_bp
 from choreclash.api.routes.chore_routes import chores_bp
+from choreclash.api.routes.child_routes import child_bp
 from choreclash.api.errors.handlers import register_error_handlers
 
 # Set .env efile in os.environ
@@ -21,6 +22,7 @@ app.register_blueprint(parent_bp)
 app.register_blueprint(auth_bp)
 app.register_blueprint(index_bp)
 app.register_blueprint(chores_bp)
+app.register_blueprint(child_bp)
 
 # Register Handlers
 register_error_handlers(app)
