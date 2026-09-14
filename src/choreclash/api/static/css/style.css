@@ -18,12 +18,10 @@ body {
     color: white;
 
     background:
-        radial-gradient(
-            circle at 50% 20%,
+        radial-gradient(circle at 50% 20%,
             #385d91 0%,
             #1d3557 35%,
-            #101827 75%
-        );
+            #101827 75%);
 
     background-attachment: fixed;
 }
@@ -37,15 +35,11 @@ body::before {
     pointer-events: none;
 
     background-image:
-        linear-gradient(
-            rgba(255,255,255,0.025) 1px,
-            transparent 1px
-        ),
-        linear-gradient(
-            90deg,
-            rgba(255,255,255,0.025) 1px,
-            transparent 1px
-        );
+        linear-gradient(rgba(255, 255, 255, 0.025) 1px,
+            transparent 1px),
+        linear-gradient(90deg,
+            rgba(255, 255, 255, 0.025) 1px,
+            transparent 1px);
 
     background-size: 50px 50px;
 
@@ -64,11 +58,9 @@ body::before {
     width: 100%;
 
     background:
-        linear-gradient(
-            180deg,
+        linear-gradient(180deg,
             rgba(15, 28, 46, 0.98),
-            rgba(15, 28, 46, 0.90)
-        );
+            rgba(15, 28, 46, 0.90));
 
     border-bottom: 3px solid #526b88;
 
@@ -153,11 +145,9 @@ body::before {
     text-align: center;
 
     background:
-        linear-gradient(
-            145deg,
+        linear-gradient(145deg,
             rgba(45, 65, 91, 0.98),
-            rgba(25, 36, 52, 0.98)
-        );
+            rgba(25, 36, 52, 0.98));
 
     border: 3px solid #637b96;
     border-radius: 24px;
@@ -310,10 +300,8 @@ body::before {
     color: #3b2700;
 
     background:
-        linear-gradient(
-            #ffe082,
-            #f5b82e
-        );
+        linear-gradient(#ffe082,
+            #f5b82e);
 
     border: 3px solid #fff0a8;
 
@@ -329,10 +317,8 @@ body::before {
     color: white;
 
     background:
-        linear-gradient(
-            #4f9bea,
-            #2864a8
-        );
+        linear-gradient(#4f9bea,
+            #2864a8);
 
     border: 3px solid #83bcf5;
 
@@ -620,10 +606,8 @@ body::before {
 .family-grid {
     display: grid;
 
-    grid-template-columns: repeat(
-        auto-fit,
-        minmax(150px, 1fr)
-    );
+    grid-template-columns: repeat(auto-fit,
+            minmax(150px, 1fr));
 
     gap: 20px;
 
@@ -641,11 +625,9 @@ body::before {
     text-decoration: none;
 
     background:
-        linear-gradient(
-            145deg,
+        linear-gradient(145deg,
             rgba(55, 76, 104, 0.95),
-            rgba(30, 43, 61, 0.95)
-        );
+            rgba(30, 43, 61, 0.95));
 
     border: 2px solid #526b88;
     border-radius: 18px;
@@ -673,7 +655,7 @@ body::before {
         0 2px 0 #111827;
 }
 
-.family-member > span {
+.family-member>span {
     color: #94a3b8;
 
     font-size: 13px;
@@ -738,4 +720,363 @@ body::before {
     padding: 8px 14px;
 
     font-size: 12px;
+}
+/* =========================================================
+   PLANNING
+   ========================================================= */
+
+.planning-slider {
+    width: min(620px, 100%);
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+.planning-track {
+    display: flex;
+    width: 200%;
+    transition: transform 0.45s ease-in-out;
+}
+
+.planning-card {
+    flex: 0 0 50%;
+    width: 50%;
+    max-width: none;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.planning-track.step-2 {
+    transform: translateX(-50%);
+}
+
+
+/* =========================================================
+   PLANNING TABLE
+   ========================================================= */
+
+.planning-card .table-container {
+    margin-top: 30px;
+    border: 2px solid #526b88;
+    border-radius: 14px;
+    overflow: hidden;
+    background: #162235;
+    box-shadow:
+        0 6px 0 #0b111b,
+        0 12px 25px rgba(0, 0, 0, 0.35);
+}
+
+.planning-card .game-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    color: #f8fafc;
+}
+
+
+/* Header */
+
+.planning-card .game-table thead {
+    background: linear-gradient(
+        180deg,
+        #304866,
+        #23364e
+    );
+}
+
+.planning-card .game-table th {
+    padding: 16px 18px;
+    text-align: left;
+    font-size: 13px;
+    font-weight: 900;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #f7c948;
+    border-bottom: 2px solid #526b88;
+    text-shadow: 0 2px 0 #111827;
+}
+
+
+/* Rows */
+
+.planning-card .game-table tbody tr {
+    background: linear-gradient(
+        90deg,
+        #1d2d43,
+        #182638
+    );
+
+    transition:
+        background 0.15s ease,
+        transform 0.15s ease,
+        box-shadow 0.15s ease;
+}
+
+.planning-card .game-table tbody tr:nth-child(even) {
+    background: linear-gradient(
+        90deg,
+        #21334b,
+        #1a2a3f
+    );
+}
+
+
+/* Hover */
+
+.planning-card .game-table tbody tr:hover {
+    background: linear-gradient(
+        90deg,
+        #304a68,
+        #253d59
+    );
+
+    box-shadow:
+        inset 4px 0 0 #f7c948,
+        inset 0 1px 0 rgba(247, 201, 72, 0.15);
+
+    transform: translateX(3px);
+}
+
+
+/* Cells */
+
+.planning-card .game-table td {
+    padding: 16px 18px;
+    border-bottom: 1px solid #30445d;
+    vertical-align: middle;
+}
+
+.planning-card .game-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+
+/* Chore name */
+
+.planning-card .game-table td:first-child {
+    white-space: nowrap;
+}
+
+.planning-card .game-table td strong {
+    font-size: 15px;
+    text-shadow: 0 2px 0 #111827;
+}
+
+.planning-card .table-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 34px;
+    height: 34px;
+
+    margin-right: 8px;
+
+    background: #111c2c;
+    border: 2px solid #526b88;
+    border-radius: 8px;
+
+    box-shadow: 0 2px 0 #0b111b;
+
+    vertical-align: middle;
+}
+
+
+/* Description */
+
+.planning-card .game-table td:nth-child(2) {
+    color: #aebdd0;
+    font-size: 14px;
+}
+
+
+/* Checkbox column */
+
+.planning-card .game-table th:last-child,
+.planning-card .game-table td:last-child {
+    width: 70px;
+    text-align: center;
+}
+
+
+/* =========================================================
+   CHORE CHECKBOX
+   ========================================================= */
+
+.planning-card .game-table input[type="checkbox"] {
+    appearance: none;
+    -webkit-appearance: none;
+
+    position: relative;
+
+    width: 28px;
+    height: 28px;
+
+    margin: 0;
+
+    cursor: pointer;
+
+    background: linear-gradient(
+        145deg,
+        #263b56,
+        #142237
+    );
+
+    border: 3px solid #637b96;
+    border-radius: 7px;
+
+    box-shadow:
+        0 3px 0 #0b111b,
+        inset 0 1px 1px rgba(255, 255, 255, 0.08);
+
+    transition:
+        transform 0.12s ease,
+        border-color 0.12s ease,
+        background 0.12s ease,
+        box-shadow 0.12s ease;
+}
+
+
+/* Hover */
+
+.planning-card .game-table input[type="checkbox"]:hover {
+    border-color: #f7c948;
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 4px 0 #0b111b,
+        0 0 10px rgba(247, 201, 72, 0.2);
+}
+
+
+/* Checked */
+
+.planning-card .game-table input[type="checkbox"]:checked {
+    background: linear-gradient(
+        145deg,
+        #f7d45c,
+        #d99d1d
+    );
+
+    border-color: #ffe58a;
+
+    box-shadow:
+        0 3px 0 #8c5d0d,
+        0 0 12px rgba(247, 201, 72, 0.4);
+}
+
+
+/* Checkmark */
+
+.planning-card .game-table input[type="checkbox"]:checked::after {
+    content: "✓";
+
+    position: absolute;
+
+    top: 50%;
+    left: 50%;
+
+    transform: translate(-50%, -53%);
+
+    color: #172235;
+
+    font-size: 19px;
+    font-weight: 1000;
+}
+
+
+/* =========================================================
+   CHILD SELECTION
+   ========================================================= */
+
+.selectable-member {
+    position: relative;
+
+    cursor: pointer;
+
+    user-select: none;
+
+    transition:
+        transform 0.15s ease,
+        border-color 0.15s ease,
+        box-shadow 0.15s ease,
+        background 0.15s ease;
+}
+
+
+/* Hide checkbox completely */
+
+.selectable-member input[type="checkbox"] {
+    position: absolute;
+
+    width: 1px;
+    height: 1px;
+
+    opacity: 0;
+    pointer-events: none;
+}
+
+
+/* Hover */
+
+.selectable-member:hover {
+    transform: translateY(-4px);
+
+    border-color: #a8bad0;
+
+    background: linear-gradient(
+        145deg,
+        rgba(65, 88, 119, 0.98),
+        rgba(31, 46, 65, 0.98)
+    );
+
+    box-shadow:
+        0 9px 0 #0b111b,
+        0 15px 25px rgba(0, 0, 0, 0.4);
+}
+
+
+/* Selected child */
+
+.selectable-member:has(input[type="checkbox"]:checked) {
+    border-color: #f7c948;
+
+    background: linear-gradient(
+        145deg,
+        rgba(75, 75, 47, 0.98),
+        rgba(38, 43, 40, 0.98)
+    );
+
+    box-shadow:
+        0 7px 0 #8c5d0d,
+        0 0 0 2px rgba(247, 201, 72, 0.25),
+        0 0 22px rgba(247, 201, 72, 0.25);
+}
+
+
+/* Selected avatar */
+
+.selectable-member:has(input[type="checkbox"]:checked) .avatar {
+    border-color: #ffe58a;
+
+    box-shadow:
+        0 4px 0 #9b6810,
+        0 0 15px rgba(247, 201, 72, 0.45);
+}
+
+
+/* Selected name */
+
+.selectable-member:has(input[type="checkbox"]:checked) h3 {
+    color: #f7c948;
+
+    text-shadow:
+        0 2px 0 #111827,
+        0 0 8px rgba(247, 201, 72, 0.25);
+}
+
+
+/* Click feedback */
+
+.selectable-member:active {
+    transform: translateY(1px);
 }

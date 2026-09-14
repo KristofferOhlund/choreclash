@@ -2,7 +2,7 @@ from flask import (
     Blueprint, redirect, render_template, request, flash, url_for, session)
 
 from choreclash.db.db import DB
-from choreclash.api.services import chore_service
+from choreclash.api.services import chore_service, parent_service
 
 
 chores_bp = Blueprint(
@@ -66,5 +66,22 @@ def delete(chore_id):
     return redirect(url_for("chores.chores"))
 
 
+@chores_bp.route("/chores/assign", methods=["GET", "POST"])
+def assign():
+    parent_id = session.get("parent_id")
+    if not parent_id:
+        flash("You must be logged in to access this page.", "error")
+        return redirect(url_for("auth.login"))
 
+    children = parent_service.get_children(parent_id)
+    chores = chore_service.get_chores()
+
+    if request.method == "POST":
+        print(request.form)
+        flash("Chore assigned successfully.", "success")
+        return redirect(url_for("chores.chores"))
+
+    chores = chore_service.get_chores()
+    children = parent_service.get_children(parent_id)
+    return render_template("chore2child.html", chores=chores, children=children)
 

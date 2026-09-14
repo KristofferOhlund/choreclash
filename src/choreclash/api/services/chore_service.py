@@ -20,13 +20,10 @@ def get_chore(chore_id: str):
 
 def get_chores():
     """
-    Retrieve all chores for a given parent.
-
-    Args:
-        parent_id (str): The ID of the parent.
+    Retrieve all chores.
 
     Returns:
-        list: A list of chore objects corresponding to the parent.
+        list: A list of chore objects
     """
     db = DB()
     with db.get_session() as db_session:
