@@ -18,7 +18,7 @@ def get_child(child_id: str):
         child = db_session.query(Child).filter_by(id=child_id).first()
         return child
 
-def update_child(chore_id: str, updated_data: dict):
+def update_child(child_id: str, updated_data: dict):
     """
     Update a child
 
@@ -26,6 +26,7 @@ def update_child(chore_id: str, updated_data: dict):
         child_id (str): The ID of the child to be updated.
         updated_data (dict): A dictionary containing the updated child data.
     """
+    raise NotImplementedError("This function is not yet implemented.")
     db = DB()
     with db.get_session() as db_session:
         child = db_session.query(Child).filter_by(id=child_id).first()
@@ -41,6 +42,7 @@ def delete_child(child_id: str):
     Args:
         child_id (str): The ID of the child to be deleted.
     """
+    raise NotImplementedError("This function is not yet implemented.")
     db = DB()
     with db.get_session() as db_session:
         child = db_session.query(Child).filter_by(id=child_id).first()
