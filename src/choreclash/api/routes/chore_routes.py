@@ -2,7 +2,8 @@ from flask import (
     Blueprint, redirect, render_template, request, flash, url_for, session)
 
 from choreclash.db.db import DB
-from choreclash.api.services import chore_service, parent_service
+from choreclash.api.services import (
+    chore_service, parent_service, chore2child_service)
 
 
 chores_bp = Blueprint(
@@ -77,7 +78,7 @@ def assign():
     chores = chore_service.get_chores()
 
     if request.method == "POST":
-        print(request.form)
+        chore2child_service.create_chore2child(request.form)
         flash("Chore assigned successfully.", "success")
         return redirect(url_for("chores.chores"))
 

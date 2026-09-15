@@ -38,7 +38,7 @@
 
 <form
     method="POST"
-    action="#"
+    action="{{ url_for('chores.assign') }}"
     class="planning-form"
 >
 
@@ -96,7 +96,7 @@
                                 <td>
                                     <input
                                         type="checkbox"
-                                        name="chore_ids"
+                                        name="chore_id"
                                         value="{{ chore.id }}"
                                     >
                                 </td>
@@ -147,7 +147,7 @@
 
                         <input
                             type="checkbox"
-                            name="child_ids"
+                            name="child_id"
                             value="{{ child.id }}"
                         >
 
@@ -210,7 +210,7 @@
     function nextStep() {
 
         const selectedChores = document.querySelectorAll(
-            'input[name="chore_ids"]:checked'
+            'input[name="chore_id"]:checked'
         );
 
         if (selectedChores.length === 0) {
