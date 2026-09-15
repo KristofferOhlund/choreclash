@@ -29,3 +29,12 @@ def create_child():
         return redirect(url_for("parent.canvas"))
 
     return render_template("create_child.html")
+
+@child_bp.route("/child/<int:child_id>", methods=["GET"])
+def child_profile(child_id):
+    child = child_service.get_child(child_id)
+    if not child:
+        flash("Child not found.", "error")
+        return redirect(url_for("parent.canvas"))
+
+    return render_template("child_profile.html", child=child)

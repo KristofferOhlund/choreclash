@@ -63,3 +63,18 @@ def create_child(child_data: dict):
         new_child = Child(**child_data)
         db_session.add(new_child)
         db_session.commit()
+
+
+def get_chore_assignments(child_id: int):
+    """
+    Get chore assignments for a child
+
+    Args:
+        child_id (int): The ID of the child whose chore assignments are to be retrieved.
+    """
+    db = DB()
+    with db.get_session() as db_session:
+        child = db_session.query(Child).filter_by(id=child_id).first()
+        if child:
+            return child.chore_assignments
+        return []
