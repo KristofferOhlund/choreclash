@@ -3,7 +3,7 @@ from flask import (
 
 from choreclash.db.db import DB
 from choreclash.api.services import (
-    chore_service, parent_service, chore2child_service)
+    chore_service, parent_service, chore2child_service, occurence_service)
 
 
 chores_bp = Blueprint(
@@ -78,12 +78,13 @@ def assign():
     chores = chore_service.get_chores()
 
     if request.method == "POST":
-        print("FORM!", request.form)
-        chore2child_service.create_chore2child(request.form)
+        child_ids = request.form.getlist("child_id")
+        chore_ids = request.form.getlist("chore_id")
+        c2c_objects = chore2child_service.create_chore2child(child_ids=child_ids, chore_ids=chore_ids)
+        dates = request.form.getlist("dates")
+        occurence_service.create_chore_occurence(Chore2Child=c2c_objects, dates=dates)
         flash("Chore assigned successfully.", "success")
         return redirect(url_for("chores.chores"))
 
-    chores = chore_service.get_chores()
-    children = parent_service.get_children(parent_id)
     return render_template("chore2child.html", chores=chores, children=children)
 
