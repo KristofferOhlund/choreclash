@@ -2,6 +2,7 @@ from sqlalchemy import select
 from sqlalchemy.orm import Session
 import choreclash.models as models
 from pytest import fixture
+from datetime import datetime
 
 @fixture
 def session(init):
@@ -13,7 +14,7 @@ def session(init):
 
     chore2child = models.Chore2Child(child=child, chore=chore)
 
-    occurence = models.ChoreOccurence(assignment=chore2child)
+    occurence = models.ChoreOccurence(assignment=chore2child, date=datetime.strptime("2025-05-11", "%Y-%m-%d"))
 
     with Session(init) as session:
         session.add(occurence)
