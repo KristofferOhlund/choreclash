@@ -78,6 +78,7 @@ def assign():
     chores = chore_service.get_chores()
 
     if request.method == "POST":
+        print("FORM!", request.form)
         chore2child_service.create_chore2child(request.form)
         flash("Chore assigned successfully.", "success")
         return redirect(url_for("chores.chores"))

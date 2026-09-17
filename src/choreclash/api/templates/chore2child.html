@@ -1,233 +1,168 @@
-{% extends "base.html" %}
-
-{% block title %}
-    Planering | ChoreClash
-{% endblock %}
-
-{% block content %}
-
-{% if not children %}
+{% extends "base.html" %} {% block title %} Planering | ChoreClash {% endblock
+%} {% block content %} {% if not children %}
 
 <section>
+  <div class="game-card">
+    <div class="game-icon">👨‍👩‍👧‍👦</div>
 
-    <div class="game-card">
+    <h1>INGA BARN ÄN</h1>
 
-        <div class="game-icon">
-            👨‍👩‍👧‍👦
-        </div>
+    <p>
+      Du har inga familjemedlemmar än. Lägg till en familjemedlem för att komma
+      igång!
+    </p>
 
-        <h1>INGA BARN ÄN</h1>
-
-        <p>
-            Du har inga familjemedlemmar än.
-            Lägg till en familjemedlem för att komma igång!
-        </p>
-
-        <a
-            href="{{ url_for('child.create_child') }}"
-            class="game-button secondary"
-        >
-            LÄGG TILL FAMILJEMEDLEM
-        </a>
-
-    </div>
-
+    <a href="{{ url_for('child.create_child') }}" class="game-button secondary">
+      LÄGG TILL FAMILJEMEDLEM
+    </a>
+  </div>
 </section>
 
 {% else %}
 
 <form
-    method="POST"
-    action="{{ url_for('chores.assign') }}"
-    class="planning-form"
+  method="POST"
+  action="{{ url_for('chores.assign') }}"
+  class="planning-form"
 >
+  <div class="planning-slider">
+    <div class="planning-track">
+      <!-- STEG 1: VÄLJ UPPGIFTER -->
+      <div class="game-card planning-card">
+        <div class="game-icon">⚔️</div>
 
-    <div class="planning-slider">
+        <h1>VÄLJ UPPGIFTER</h1>
 
-        <div class="planning-track">
+        <p>Markera de uppgifter du vill tilldela.</p>
 
-            <!-- STEG 1: VÄLJ UPPGIFTER -->
-            <div class="game-card planning-card">
+        <div class="table-container">
+          <table class="game-table">
+            <thead>
+              <tr>
+                <th>Uppgift</th>
+                <th>Beskrivning</th>
+                <th>Välj</th>
+              </tr>
+            </thead>
 
-                <div class="game-icon">
-                    ⚔️
-                </div>
+            <tbody>
+              {% for chore in chores %}
 
-                <h1>VÄLJ UPPGIFTER</h1>
+              <tr>
+                <td>
+                  {% if chore.icon %}
+                  <span class="table-icon"> 🧹 </span>
+                  {% endif %}
 
-                <p>
-                    Markera de uppgifter du vill tilldela.
-                </p>
+                  <strong> {{ chore.title }} </strong>
+                </td>
 
-                <div class="table-container">
+                <td>{{ chore.description or "-" }}</td>
 
-                    <table class="game-table">
+                <td>
+                  <input
+                    type="checkbox"
+                    name="chore_id"
+                    value="{{ chore.id }}"
+                  />
+                </td>
+              </tr>
 
-                        <thead>
-                            <tr>
-                                <th>Uppgift</th>
-                                <th>Beskrivning</th>
-                                <th>Välj</th>
-                            </tr>
-                        </thead>
-
-                        <tbody>
-
-                            {% for chore in chores %}
-
-                            <tr>
-
-                                <td>
-                                    {% if chore.icon %}
-                                        <span class="table-icon">
-                                            🧹
-                                        </span>
-                                    {% endif %}
-
-                                    <strong>
-                                        {{ chore.title }}
-                                    </strong>
-                                </td>
-
-                                <td>
-                                    {{ chore.description or "-" }}
-                                </td>
-
-                                <td>
-                                    <input
-                                        type="checkbox"
-                                        name="chore_id"
-                                        value="{{ chore.id }}"
-                                    >
-                                </td>
-
-                            </tr>
-
-                            {% endfor %}
-
-                        </tbody>
-
-                    </table>
-
-                </div>
-
-                <div class="button-group">
-
-                    <button
-                        type="button"
-                        class="game-button primary"
-                        onclick="nextStep()"
-                    >
-                        NÄSTA →
-                    </button>
-
-                </div>
-
-            </div>
-
-
-            <!-- STEG 2: VÄLJ BARN -->
-            <div class="game-card planning-card">
-
-                <div class="game-icon">
-                    👨‍👩‍👧‍👦
-                </div>
-
-                <h1>VÄLJ BARN</h1>
-
-                <p>
-                    Välj vilka barn som ska få de valda uppgifterna.
-                </p>
-
-                <div class="family-grid">
-
-                    {% for child in children %}
-
-                    <label class="family-member selectable-member">
-
-                        <input
-                            type="checkbox"
-                            name="child_id"
-                            value="{{ child.id }}"
-                        >
-
-                        <div class="avatar">
-
-                            <img
-                                src="{{ url_for(
-                                    'static',
-                                    filename='images/avatars/' ~ child.avatar_url
-                                ) }}"
-                                alt="{{ child.first_name }}"
-                            >
-
-                        </div>
-
-                        <h3>
-                            {{ child.first_name }}
-                        </h3>
-
-                    </label>
-
-                    {% endfor %}
-
-                </div>
-
-                <div class="button-group">
-
-                    <button
-                        type="button"
-                        class="game-button secondary"
-                        onclick="previousStep()"
-                    >
-                        ← TILLBAKA
-                    </button>
-
-                    <button
-                        type="submit"
-                        class="game-button primary"
-                    >
-                        TILLDELA UPPGIFTER
-                    </button>
-
-                </div>
-
-            </div>
-
+              {% endfor %}
+            </tbody>
+          </table>
         </div>
 
-    </div>
+        <div class="button-group">
+          <button
+            type="button"
+            class="game-button primary"
+            onclick="nextStep()"
+          >
+            NÄSTA →
+          </button>
+        </div>
+      </div>
 
+      <!-- STEG 2: VÄLJ BARN -->
+      <div class="game-card planning-card">
+        <div class="game-icon">👨‍👩‍👧‍👦</div>
+
+        <h1>VÄLJ BARN</h1>
+
+        <p>Välj vilka barn som ska få de valda uppgifterna.</p>
+
+        <div class="family-grid">
+          {% for child in children %}
+
+          <label class="family-member selectable-member">
+            <input type="checkbox" name="child_id" value="{{ child.id }}" />
+
+            <div class="avatar">
+              <img
+                src="{{ url_for(
+                                'static',
+                                filename='images/avatars/' ~ child.avatar_url
+                            ) }}"
+                alt="{{ child.first_name }}"
+              />
+            </div>
+
+            <h3>{{ child.first_name }}</h3>
+          </label>
+
+          {% endfor %}
+        </div>
+        <div class="game-calendar">
+          <label for="date"></label>
+          <input class="date" name="dates"/>
+        </div>
+        <div class="button-group">
+          <button
+            type="button"
+            class="game-button secondary"
+            onclick="previousStep()"
+          >
+            ← TILLBAKA
+          </button>
+
+          <button type="submit" class="game-button primary">
+            TILLDELA UPPGIFTER
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
 </form>
 
 {% endif %}
 
+<script>
+  const track = document.querySelector(".planning-track");
+
+  function nextStep() {
+    const selectedChores = document.querySelectorAll(
+      'input[name="chore_id"]:checked',
+    );
+
+    if (selectedChores.length === 0) {
+      alert("Välj minst en uppgift.");
+      return;
+    }
+
+    track.classList.add("step-2");
+  }
+
+  function previousStep() {
+    track.classList.remove("step-2");
+  }
+</script>
 
 <script>
-
-    const track = document.querySelector(".planning-track");
-
-    function nextStep() {
-
-        const selectedChores = document.querySelectorAll(
-            'input[name="chore_id"]:checked'
-        );
-
-        if (selectedChores.length === 0) {
-            alert("Välj minst en uppgift.");
-            return;
-        }
-
-        track.classList.add("step-2");
-    }
-
-
-    function previousStep() {
-
-        track.classList.remove("step-2");
-    }
-
+  flatpickr(".date", {
+    mode: "multiple",
+    dateFormat: "Y-m-d",
+  });
 </script>
 
 {% endblock %}
-
