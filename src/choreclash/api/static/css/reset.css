@@ -1,0 +1,47 @@
+/* =========================================================
+   RESET
+   ========================================================= */
+
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    min-height: 100%;
+}
+
+body {
+    margin: 0;
+
+    font-family: Arial, Helvetica, sans-serif;
+    color: white;
+
+    background:
+        radial-gradient(circle at 50% 20%,
+            #385d91 0%,
+            #1d3557 35%,
+            #101827 75%);
+
+    background-attachment: fixed;
+}
+
+body::before {
+    content: "";
+
+    position: fixed;
+    inset: 0;
+
+    pointer-events: none;
+
+    background-image:
+        linear-gradient(rgba(255, 255, 255, 0.025) 1px,
+            transparent 1px),
+        linear-gradient(90deg,
+            rgba(255, 255, 255, 0.025) 1px,
+            transparent 1px);
+
+    background-size: 50px 50px;
+
+    z-index: -1;
+}

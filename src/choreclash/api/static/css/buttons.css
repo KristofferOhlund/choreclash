@@ -1,0 +1,118 @@
+
+
+/* =========================================================
+   BUTTONS
+   ========================================================= */
+
+.game-button {
+    display: inline-block;
+
+    min-width: 190px;
+
+    padding: 16px 28px;
+
+    color: white;
+
+    border-radius: 14px;
+
+    font-size: 18px;
+    font-weight: 900;
+
+    letter-spacing: 0.5px;
+
+    text-align: center;
+    text-decoration: none;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.1s,
+        filter 0.1s;
+}
+
+.game-button:hover {
+    transform: translateY(-2px);
+
+    filter: brightness(1.08);
+}
+
+.game-button:active {
+    transform: translateY(3px);
+}
+
+
+/* GOLD BUTTON */
+
+.game-button.primary {
+    color: #3b2700;
+
+    background:
+        linear-gradient(#ffe082,
+            #f5b82e);
+
+    border: 3px solid #fff0a8;
+
+    box-shadow:
+        0 5px 0 #9b6810,
+        0 8px 15px rgba(0, 0, 0, 0.35);
+}
+
+
+/* BLUE BUTTON */
+
+.game-button.secondary {
+    color: white;
+
+    background:
+        linear-gradient(#4f9bea,
+            #2864a8);
+
+    border: 3px solid #83bcf5;
+
+    box-shadow:
+        0 5px 0 #173d69,
+        0 8px 15px rgba(0, 0, 0, 0.35);
+}
+
+/* DANGER BUTTON */
+.game-button.danger {
+    color: white;
+
+    background:
+        linear-gradient(#e05252,
+            #a82828);
+
+    border: 3px solid #f08383;
+
+    box-shadow:
+        0 5px 0 #691717,
+        0 8px 15px rgba(0, 0, 0, 0.35);
+}
+
+/* SMALL NAVIGATION BUTTON */
+
+.nav-button {
+    min-width: auto;
+
+    padding: 10px 18px;
+
+    font-size: 14px;
+}
+
+
+/* =========================================================
+   BUTTON GROUP
+   ========================================================= */
+
+.button-group {
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    gap: 15px;
+
+    flex-wrap: wrap;
+
+    margin-top: 25px;
+}

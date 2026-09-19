@@ -1,0 +1,64 @@
+/* =========================================================
+   HEADER / NAVIGATION
+   ========================================================= */
+
+.site-header {
+    position: relative;
+    z-index: 10;
+
+    width: 100%;
+
+    background:
+        linear-gradient(180deg,
+            rgba(15, 28, 46, 0.98),
+            rgba(15, 28, 46, 0.90));
+
+    border-bottom: 3px solid #526b88;
+
+    box-shadow:
+        0 5px 0 rgba(5, 10, 18, 0.5),
+        0 10px 25px rgba(0, 0, 0, 0.25);
+}
+
+.site-nav {
+    width: min(1100px, 92%);
+    min-height: 76px;
+
+    margin: 0 auto;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 20px;
+}
+
+.site-logo {
+    color: white;
+
+    font-size: 28px;
+    font-weight: 1000;
+
+    letter-spacing: -1px;
+
+    text-decoration: none;
+
+    text-shadow:
+        0 3px 0 #16202f,
+        0 5px 10px rgba(0, 0, 0, 0.5);
+}
+
+.site-logo span {
+    color: #f7c948;
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+
+    gap: 10px;
+}
+
+.nav-links form {
+    margin: 0;
+}

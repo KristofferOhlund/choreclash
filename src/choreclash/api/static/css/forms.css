@@ -1,0 +1,56 @@
+
+/* =========================================================
+   FORMS
+   ========================================================= */
+
+.game-form {
+    width: 100%;
+}
+
+.form-group {
+    margin-bottom: 20px;
+
+    text-align: left;
+}
+
+.form-group label {
+    display: block;
+
+    margin-bottom: 7px;
+
+    color: #e2e8f0;
+
+    font-weight: 700;
+}
+
+.game-input {
+    width: 100%;
+
+    padding: 14px 16px;
+
+    color: white;
+
+    background: #111c2c;
+
+    border: 3px solid #435b77;
+    border-radius: 12px;
+
+    outline: none;
+
+    font-size: 16px;
+
+    transition:
+        border-color 0.15s,
+        box-shadow 0.15s;
+}
+
+.game-input::placeholder {
+    color: #718096;
+}
+
+.game-input:focus {
+    border-color: #f0b429;
+
+    box-shadow:
+        0 0 0 3px rgba(240, 180, 41, 0.2);
+}

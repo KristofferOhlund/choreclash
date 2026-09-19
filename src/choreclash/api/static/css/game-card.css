@@ -1,0 +1,120 @@
+/* =========================================================
+   GAME CARD
+   ========================================================= */
+
+.game-card {
+    width: min(620px, 100%);
+
+    margin: 0 auto;
+
+    padding: 35px;
+
+    text-align: center;
+
+    background:
+        linear-gradient(145deg,
+            rgba(45, 65, 91, 0.98),
+            rgba(25, 36, 52, 0.98));
+
+    border: 3px solid #637b96;
+    border-radius: 24px;
+
+    box-shadow:
+        0 12px 0 #0b111b,
+        0 25px 45px rgba(0, 0, 0, 0.5);
+}
+
+.game-card h1,
+.game-card h2,
+.game-card h3 {
+    margin-top: 0;
+
+    text-shadow:
+        0 3px 0 #111827;
+}
+
+.game-card p {
+    color: #cbd5e1;
+
+    line-height: 1.6;
+}
+
+
+/* =========================================================
+   GAME ICON
+   ========================================================= */
+
+.game-icon {
+    width: 90px;
+    height: 90px;
+
+    margin: -70px auto 20px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 45px;
+
+    background: #f0b429;
+
+    border: 5px solid #ffe08a;
+    border-radius: 50%;
+
+    box-shadow:
+        0 6px 0 #9a6810,
+        0 12px 20px rgba(0, 0, 0, 0.4);
+}
+
+
+/* =========================================================
+   LOGO / PAGE TITLE
+   ========================================================= */
+
+.game-logo {
+    font-size: clamp(42px, 8vw, 82px);
+
+    font-weight: 1000;
+    line-height: 0.9;
+
+    letter-spacing: -3px;
+
+    text-align: center;
+
+    text-shadow:
+        0 5px 0 #16202f,
+        0 8px 15px rgba(0, 0, 0, 0.5);
+}
+
+.game-logo span {
+    color: white;
+}
+
+.game-logo strong {
+    color: #f7c948;
+}
+
+.game-tagline {
+    margin: 25px 0 35px;
+
+    color: #dbeafe;
+
+    font-size: 20px;
+    font-weight: 600;
+
+    text-align: center;
+}
+
+/* =========================================================
+   DIVIDER
+   ========================================================= */
+
+.game-divider {
+    margin: 45px 0 35px;
+
+    border: 0;
+    border-top: 3px solid #526b88;
+
+    box-shadow:
+        0 2px 0 rgba(0, 0, 0, 0.25);
+}

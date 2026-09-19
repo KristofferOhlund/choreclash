@@ -1,0 +1,96 @@
+/* =========================================================
+   CHILD SELECTION
+   ========================================================= */
+
+.selectable-member {
+    position: relative;
+
+    cursor: pointer;
+
+    user-select: none;
+
+    transition:
+        transform 0.15s ease,
+        border-color 0.15s ease,
+        box-shadow 0.15s ease,
+        background 0.15s ease;
+}
+
+
+/* Hide checkbox completely */
+
+.selectable-member input[type="checkbox"] {
+    position: absolute;
+
+    width: 1px;
+    height: 1px;
+
+    opacity: 0;
+    pointer-events: none;
+}
+
+
+/* Hover */
+
+.selectable-member:hover {
+    transform: translateY(-4px);
+
+    border-color: #a8bad0;
+
+    background: linear-gradient(
+        145deg,
+        rgba(65, 88, 119, 0.98),
+        rgba(31, 46, 65, 0.98)
+    );
+
+    box-shadow:
+        0 9px 0 #0b111b,
+        0 15px 25px rgba(0, 0, 0, 0.4);
+}
+
+
+/* Selected child */
+
+.selectable-member:has(input[type="checkbox"]:checked) {
+    border-color: #f7c948;
+
+    background: linear-gradient(
+        145deg,
+        rgba(75, 75, 47, 0.98),
+        rgba(38, 43, 40, 0.98)
+    );
+
+    box-shadow:
+        0 7px 0 #8c5d0d,
+        0 0 0 2px rgba(247, 201, 72, 0.25),
+        0 0 22px rgba(247, 201, 72, 0.25);
+}
+
+
+/* Selected avatar */
+
+.selectable-member:has(input[type="checkbox"]:checked) .avatar {
+    border-color: #ffe58a;
+
+    box-shadow:
+        0 4px 0 #9b6810,
+        0 0 15px rgba(247, 201, 72, 0.45);
+}
+
+
+/* Selected name */
+
+.selectable-member:has(input[type="checkbox"]:checked) h3 {
+    color: #f7c948;
+
+    text-shadow:
+        0 2px 0 #111827,
+        0 0 8px rgba(247, 201, 72, 0.25);
+}
+
+
+/* Click feedback */
+
+.selectable-member:active {
+    transform: translateY(1px);
+}

@@ -1,0 +1,232 @@
+/* =========================================================
+   PLANNING TABLE
+   ========================================================= */
+
+.planning-card .table-container {
+    margin-top: 30px;
+    border: 2px solid #526b88;
+    border-radius: 14px;
+    overflow: hidden;
+    background: #162235;
+    box-shadow:
+        0 6px 0 #0b111b,
+        0 12px 25px rgba(0, 0, 0, 0.35);
+}
+
+.planning-card .game-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    color: #f8fafc;
+}
+
+
+/* Header */
+
+.planning-card .game-table thead {
+    background: linear-gradient(
+        180deg,
+        #304866,
+        #23364e
+    );
+}
+
+.planning-card .game-table th {
+    padding: 16px 18px;
+    text-align: left;
+    font-size: 13px;
+    font-weight: 900;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #f7c948;
+    border-bottom: 2px solid #526b88;
+    text-shadow: 0 2px 0 #111827;
+}
+
+
+/* Rows */
+
+.planning-card .game-table tbody tr {
+    background: linear-gradient(
+        90deg,
+        #1d2d43,
+        #182638
+    );
+
+    transition:
+        background 0.15s ease,
+        transform 0.15s ease,
+        box-shadow 0.15s ease;
+}
+
+.planning-card .game-table tbody tr:nth-child(even) {
+    background: linear-gradient(
+        90deg,
+        #21334b,
+        #1a2a3f
+    );
+}
+
+
+/* Hover */
+
+.planning-card .game-table tbody tr:hover {
+    background: linear-gradient(
+        90deg,
+        #304a68,
+        #253d59
+    );
+
+    box-shadow:
+        inset 4px 0 0 #f7c948,
+        inset 0 1px 0 rgba(247, 201, 72, 0.15);
+
+    transform: translateX(3px);
+}
+
+
+/* Cells */
+
+.planning-card .game-table td {
+    padding: 16px 18px;
+    border-bottom: 1px solid #30445d;
+    vertical-align: middle;
+}
+
+.planning-card .game-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+
+/* Chore name */
+
+.planning-card .game-table td:first-child {
+    white-space: nowrap;
+}
+
+.planning-card .game-table td strong {
+    font-size: 15px;
+    text-shadow: 0 2px 0 #111827;
+}
+
+.planning-card .table-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 34px;
+    height: 34px;
+
+    margin-right: 8px;
+
+    background: #111c2c;
+    border: 2px solid #526b88;
+    border-radius: 8px;
+
+    box-shadow: 0 2px 0 #0b111b;
+
+    vertical-align: middle;
+}
+
+
+/* Description */
+
+.planning-card .game-table td:nth-child(2) {
+    color: #aebdd0;
+    font-size: 14px;
+}
+
+
+/* Checkbox column */
+
+.planning-card .game-table th:last-child,
+.planning-card .game-table td:last-child {
+    width: 70px;
+    text-align: center;
+}
+
+
+/* =========================================================
+   CHORE CHECKBOX
+   ========================================================= */
+
+.planning-card .game-table input[type="checkbox"] {
+    appearance: none;
+    -webkit-appearance: none;
+
+    position: relative;
+
+    width: 28px;
+    height: 28px;
+
+    margin: 0;
+
+    cursor: pointer;
+
+    background: linear-gradient(
+        145deg,
+        #263b56,
+        #142237
+    );
+
+    border: 3px solid #637b96;
+    border-radius: 7px;
+
+    box-shadow:
+        0 3px 0 #0b111b,
+        inset 0 1px 1px rgba(255, 255, 255, 0.08);
+
+    transition:
+        transform 0.12s ease,
+        border-color 0.12s ease,
+        background 0.12s ease,
+        box-shadow 0.12s ease;
+}
+
+
+/* Hover */
+
+.planning-card .game-table input[type="checkbox"]:hover {
+    border-color: #f7c948;
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 4px 0 #0b111b,
+        0 0 10px rgba(247, 201, 72, 0.2);
+}
+
+
+/* Checked */
+
+.planning-card .game-table input[type="checkbox"]:checked {
+    background: linear-gradient(
+        145deg,
+        #f7d45c,
+        #d99d1d
+    );
+
+    border-color: #ffe58a;
+
+    box-shadow:
+        0 3px 0 #8c5d0d,
+        0 0 12px rgba(247, 201, 72, 0.4);
+}
+
+
+/* Checkmark */
+
+.planning-card .game-table input[type="checkbox"]:checked::after {
+    content: "✓";
+
+    position: absolute;
+
+    top: 50%;
+    left: 50%;
+
+    transform: translate(-50%, -53%);
+
+    color: #172235;
+
+    font-size: 19px;
+    font-weight: 1000;
+}
