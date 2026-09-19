@@ -82,7 +82,7 @@ def assign():
         chore_ids = request.form.getlist("chore_id")
         c2c_objects = chore2child_service.create_chore2child(child_ids=child_ids, chore_ids=chore_ids)
         dates = request.form.getlist("dates")
-        occurence_service.create_chore_occurence(Chore2Child=c2c_objects, dates=dates)
+        occurence_service.create_chore_occurence(chore2child=c2c_objects, dates=dates)
         flash("Chore assigned successfully.", "success")
         return redirect(url_for("chores.chores"))
 

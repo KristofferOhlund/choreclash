@@ -21,10 +21,18 @@
         <div class="child-profile">
             <p>
                 <strong>Sysslor:</strong>
-                {% if child.chores %}
+                {% if child.chore_assignments %}
             <ul>
-                {% for chore in child.chores %}
-                <li>{{ chore.name }}</li>
+                {% for chore2child in child.chore_assignments %}
+                <li>{{ chore2child.chore.title }} </li>
+                    {% for occurrence in chore2child.occurrences %}
+                        <li>{{ occurrence.date }} </li>
+                        {% if occurrence.is_complete %}
+                        <p>FÄRDIG</p>
+                        {% else %}
+                        <p>INTE FÄRDIG</p>
+                        {% endif %}
+                    {% endfor %}
                 {% endfor %}
             </ul>
             {% else %}
@@ -34,7 +42,6 @@
             <p>
                 <strong>Statistik:</strong>
             </p>
-            <p>{{child.id}}</p>
             <form method="POST" action="{{ url_for('child.delete_child', child_id=child.id) }}">
                 <button type="submit" class="game-button danger">DELETE</button>
             </form>
