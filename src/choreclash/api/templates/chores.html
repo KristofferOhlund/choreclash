@@ -54,11 +54,9 @@ Uppgifter | ChoreClash
                     <tr>
 
                         <td>
-                            {% if chore.icon %}
                             <span class="table-icon">
                                 {{ chore.icon }}
                             </span>
-                            {% endif %}
 
                             <strong>
                                 {{ chore.title }}
@@ -70,7 +68,6 @@ Uppgifter | ChoreClash
                         </td>
 
                         <td>
-
                             <div class="table-actions">
 
                                 <a href="{{ url_for('chores.edit', chore_id=chore.id) }}"
@@ -79,15 +76,12 @@ Uppgifter | ChoreClash
                                 </a>
 
                                 <form method="POST" action="{{ url_for('chores.delete', chore_id=chore.id) }}">
-
                                     <button type="submit" class="game-button danger table-button">
                                         TA BORT
                                     </button>
-
                                 </form>
 
                             </div>
-
                         </td>
 
                     </tr>
@@ -99,25 +93,7 @@ Uppgifter | ChoreClash
             </table>
 
         </div>
-
-        {% else %}
-
-        <div class="empty-state">
-
-            <span class="empty-state-icon">
-                📜
-            </span>
-
-            <h3>Inga uppgifter ännu</h3>
-
-            <p>
-                Skapa din första uppgift för att komma igång.
-            </p>
-
-
-
         {% endif %}
-
     </div>
 
 </section>

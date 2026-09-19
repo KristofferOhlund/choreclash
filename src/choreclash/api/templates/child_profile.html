@@ -18,32 +18,44 @@
             {{ child.first_name }}
         </h3>
 
-        <div class="child-profile">
+        <div class="planning-card">
             <p>
-                <strong>Sysslor:</strong>
                 {% if child.chore_assignments %}
-            <ul>
-                {% for chore2child in child.chore_assignments %}
-                <li>{{ chore2child.chore.title }} </li>
-                    {% for occurrence in chore2child.occurrences %}
-                        <li>{{ occurrence.date }} </li>
-                        {% if occurrence.is_complete %}
-                        <p>FÄRDIG</p>
-                        {% else %}
-                        <p>INTE FÄRDIG</p>
-                        {% endif %}
-                    {% endfor %}
-                {% endfor %}
-            </ul>
+            <div class="table-container">
+                <table class="game-table">
+                    <thead>
+                        <tr>
+                            <th>Syssla</th>
+                            <th>Datum</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        {% for chore2child in child.chore_assignments %}
+                        {% for occurrence in chore2child.occurrences %}
+                        <tr>
+                            <td>{{ chore2child.chore.title }}</td>
+                            <td>{{ occurrence.date }}</td>
+                            <td>
+                                {% if occurrence.is_complete %}
+                                <span class="status-icon" title="Färdig" aria-label="Färdig">✅</span>
+                                {% else %}
+                                <span class="status-icon" title="Inte färdig" aria-label="Inte färdig">⭕</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
             {% else %}
             Inga sysslor tilldelade.
             {% endif %}
             </p>
-            <p>
-                <strong>Statistik:</strong>
-            </p>
             <form method="POST" action="{{ url_for('child.delete_child', child_id=child.id) }}">
-                <button type="submit" class="game-button danger">DELETE</button>
+                <button type="submit" class="game-button danger">RADERA PROFIL</button>
             </form>
 
         </div>
