@@ -42,7 +42,6 @@ def delete_child(child_id: str):
     Args:
         child_id (str): The ID of the child to be deleted.
     """
-    raise NotImplementedError("This function is not yet implemented.")
     db = DB()
     with db.get_session() as db_session:
         child = db_session.query(Child).filter_by(id=child_id).first()

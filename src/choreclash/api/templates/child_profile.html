@@ -20,20 +20,25 @@
 
         <div class="child-profile">
             <p>
-                <strong>Sysslor:</strong> 
+                <strong>Sysslor:</strong>
                 {% if child.chores %}
-                    <ul>
-                        {% for chore in child.chores %}
-                            <li>{{ chore.name }}</li>
-                        {% endfor %}
-                    </ul>
-                {% else %}
-                    Inga sysslor tilldelade.
-                {% endif %}
+            <ul>
+                {% for chore in child.chores %}
+                <li>{{ chore.name }}</li>
+                {% endfor %}
+            </ul>
+            {% else %}
+            Inga sysslor tilldelade.
+            {% endif %}
             </p>
             <p>
                 <strong>Statistik:</strong>
             </p>
+            <p>{{child.id}}</p>
+            <form method="POST" action="{{ url_for('child.delete_child', child_id=child.id) }}">
+                <button type="submit" class="game-button danger">DELETE</button>
+            </form>
+
         </div>
     </div>
 

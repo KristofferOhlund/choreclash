@@ -38,3 +38,15 @@ def child_profile(child_id):
         return redirect(url_for("parent.canvas"))
 
     return render_template("child_profile.html", child=child)
+
+@child_bp.route("/child/<int:child_id>/delete", methods=["POST"])
+def delete_child(child_id):
+    if request.method == "POST":
+        try:
+            child = child_service.delete_child(child_id)
+        except ValueError as e:
+            flash("Child not found.", e)
+        return redirect(url_for("parent.canvas"))
+
+    return render_template("child_profile.html", child=child)
+
