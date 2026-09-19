@@ -1,7 +1,7 @@
 from choreclash.db.db import Base
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy import ForeignKey
-from datetime import datetime
+from datetime import datetime, date as date_type
 from typing import TYPE_CHECKING, Optional
 if TYPE_CHECKING:
     from choreclash.models.parent import Child
@@ -24,5 +24,5 @@ class ChoreOccurence(Base):
     id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
     chore_2_child_id: Mapped[int] = mapped_column(ForeignKey("chore_2_child_table.id"))
     is_complete: Mapped[bool] = mapped_column(default=False)
-    date: Mapped[Optional[datetime]] = mapped_column(default=datetime.today)
+    date: Mapped[Optional[date_type]] = mapped_column(default=date_type.today)
     assignment: Mapped["Chore2Child"] = relationship(back_populates="occurrences")

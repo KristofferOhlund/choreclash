@@ -4,7 +4,7 @@
 
 
 
-from datetime import datetime
+from datetime import datetime, date
 
 print()
 
@@ -22,14 +22,14 @@ def create_list_from_string(string) -> list:
     return ",".join([item.replace(" ", "") for item in string]).split(",")
 
 
-def format_dates(dates:list) -> datetime:
+def format_dates(dates:list) -> date:
     """
-    Format a list of date strings into datetime objects. 
+    Format a list of date strings into date objects. 
 
     Args:
         dates (list): A list of date strings in the format "YYYY-MM-DD".
 
     Returns:
-        list: A list of datetime objects.
+        list: A list of date objects.
     """
-    return [datetime.strptime(date, "%Y-%m-%d") for date in dates]
+    return [datetime.strptime(date, "%Y-%m-%d").date() for date in dates]
