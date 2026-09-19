@@ -327,6 +327,20 @@ body::before {
         0 8px 15px rgba(0, 0, 0, 0.35);
 }
 
+/* DANGER BUTTON */
+.game-button.danger {
+    color: white;
+
+    background:
+        linear-gradient(#e05252,
+            #a82828);
+
+    border: 3px solid #f08383;
+
+    box-shadow:
+        0 5px 0 #691717,
+        0 8px 15px rgba(0, 0, 0, 0.35);
+}
 
 /* SMALL NAVIGATION BUTTON */
 
