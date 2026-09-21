@@ -2,10 +2,8 @@
 Auth service module for user (parent) registration and authentication.
 """
 
-import email
-
-from flask import session
-
+from sqlalchemy import exc
+from choreclash.api.services.errors.clash_errors import EmailAlreadyExistError
 from choreclash.api.helpers.validators import validate_email, validate_passwords, validate_string
 from choreclash.models.parent import Parent
 from choreclash.db.db import DB
@@ -35,17 +33,16 @@ def create_user(form_data):
 
     # Register user
     parent = Parent(first_name=fname, last_name=lname, email=email, password_hash=pass1)
+
+    db = DB()
     try:
-        db = DB()
         with db.get_session() as session:
             session.add(parent)
             session.commit()
-        print(f"User {fname} {lname} registered successfully.")
-    except Exception as e:
-        print(f"Error occurred while registering user: {e}")
-        raise e
-    
-    print("registrerar användare")
+            return parent
+    except exc.IntegrityError as e:
+        session.rollback()
+        raise EmailAlreadyExistError(f"A user with {email} already exists!")
 
 def authenticate_user(form_data):
     """

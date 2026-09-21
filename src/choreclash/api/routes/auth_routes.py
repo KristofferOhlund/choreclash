@@ -3,6 +3,7 @@ from flask import (
 from choreclash.api.services import auth_service
 from choreclash.api.routes import parent_routes
 from choreclash.db.db import DB
+from choreclash.api.services.errors.clash_errors import EmailAlreadyExistError
 
 
 auth_bp = Blueprint(
@@ -32,12 +33,11 @@ def register():
     if request.method == "POST":
         try:
             auth_service.create_user(request.form)
-        except ValueError as e:
-            flash(
-                str(e),
-                "error"
-                )
-        return url_for("auth.login")
+        except EmailAlreadyExistError as e:
+            flash(str(e), "error")
+            return render_template("register.html")
+        # All is well, user created
+        return redirect(url_for("auth.login"))
 
     return render_template("register.html")
 
