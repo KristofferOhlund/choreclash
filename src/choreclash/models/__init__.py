@@ -5,3 +5,4 @@ from choreclash.models.chore_template import ChoreTemplate
 from choreclash.models.chores import Chore
 from choreclash.models.chore2child import Chore2Child
 from choreclash.models.chore_occurence import ChoreOccurence
+from choreclash.models.reward import Reward, Reward2Child, RewardOccurence

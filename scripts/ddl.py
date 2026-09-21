@@ -1,6 +1,6 @@
 from choreclash.db.db import Base, DB
 # imports are needed to register the models with the Base metadata
-import choreclash.models as models
+import choreclash.models # updates Base.metadata
 from sqlalchemy import inspect
 
 
