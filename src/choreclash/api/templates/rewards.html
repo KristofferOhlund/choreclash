@@ -1,0 +1,73 @@
+{% extends "base.html" %} {% block title %} Uppgifter | ChoreClash {% endblock
+%} {% block content %}
+
+<section>
+  <div class="game-card">
+    <div class="game-icon">⚔️</div>
+
+    <h1>BELÖNINGAR</h1>
+
+    <p>Här hanterar du de belöningar som kan tilldelas familjens barn.</p>
+
+    <div class="button-group">
+      <a href="#" class="game-button primary"> + SKAPA NY BELÖNING </a>
+    </div>
+
+    <hr class="game-divider" />
+
+    {% if rewards %}
+
+    <div class="table-container">
+      <table class="game-table">
+        <thead>
+          <tr>
+            <th>Belöning</th>
+            <th>Beskrivning</th>
+            <th>Åtgärder</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          {% for reward in rewards %}
+
+          <tr>
+            <td>
+              <span class="table-icon"> {{ reward.icon }} </span>
+
+              <strong> {{ reward.title }} </strong>
+            </td>
+
+            <td>{{ reward.description or "-" }}</td>
+
+            <td>
+              <div class="table-actions">
+                {#
+                <a
+                  href="{{ url_for('rewards.edit', reward_id=reward.id) }}"
+                  class="game-button secondary table-button"
+                >
+                  ÄNDRA
+                </a>
+
+                <form
+                  method="POST"
+                  action="{{ url_for('rewards.delete', reward_id=reward.id) }}"
+                >
+                  <button type="submit" class="game-button danger table-button">
+                    TA BORT
+                  </button>
+                </form>
+                #}
+              </div>
+            </td>
+          </tr>
+
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    {% endif %}
+  </div>
+</section>
+
+{% endblock %}
