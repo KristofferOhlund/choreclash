@@ -1,0 +1,75 @@
+{
+  "rewards": [
+    {
+      "id": 1,
+      "title": "20 min extra skärmtid",
+      "description": "Få 20 minuter extra skärmtid efter att dagens uppgifter är klara.",
+      "reward_type": "daily",
+      "icon": "screen.png"
+    },
+    {
+      "id": 2,
+      "title": "Välj kvällens film",
+      "description": "Du får välja vilken film familjen tittar på ikväll.",
+      "reward_type": "daily",
+      "icon": "movie.png"
+    },
+    {
+      "id": 3,
+      "title": "Välj efterrätt",
+      "description": "Du får välja kvällens efterrätt.",
+      "reward_type": "daily",
+      "icon": "dessert.png"
+    },
+    {
+      "id": 4,
+      "title": "15 min senare läggdags",
+      "description": "Du får vara uppe 15 minuter längre ikväll.",
+      "reward_type": "daily",
+      "icon": "bed.png"
+    },
+    {
+      "id": 5,
+      "title": "Välj familjeaktivitet",
+      "description": "Du får välja en aktivitet som familjen gör tillsammans.",
+      "reward_type": "daily",
+      "icon": "family.png"
+    },
+
+    {
+      "id": 6,
+      "title": "1 h extra skärmtid",
+      "description": "Få en hel timme extra skärmtid under helgen.",
+      "reward_type": "weekly",
+      "icon": "screen.png"
+    },
+    {
+      "id": 7,
+      "title": "Välj fredagsmys",
+      "description": "Du får välja snacks, godis eller annat fredagsmys.",
+      "reward_type": "weekly",
+      "icon": "candy.png"
+    },
+    {
+      "id": 8,
+      "title": "Välj helgens aktivitet",
+      "description": "Du får välja en aktivitet som familjen gör tillsammans under helgen.",
+      "reward_type": "weekly",
+      "icon": "trophy.png"
+    },
+    {
+      "id": 9,
+      "title": "1,5 h senare läggdags",
+      "description": "Du får vara uppe extra länge en kväll under helgen.",
+      "reward_type": "weekly",
+      "icon": "bed.png"
+    },
+    {
+      "id": 10,
+      "title": "Välj middag",
+      "description": "Du får välja vad familjen ska äta till middag en valfri dag under helgen.",
+      "reward_type": "weekly",
+      "icon": "food.png"
+    }
+  ]
+}

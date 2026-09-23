@@ -9,7 +9,7 @@ class Reward(Base):
 
     id: Mapped[int] = mapped_column(primary_key=True)
     title: Mapped[str] = mapped_column(String(50))
-    descritpion: Mapped[str] = mapped_column(String(100))
+    description: Mapped[str] = mapped_column(String(100))
     reward_type: Mapped[str] = mapped_column(String(20))
     icon: Mapped[str] = mapped_column(String(30), default="default_icon.png")
 
