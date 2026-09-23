@@ -20,11 +20,7 @@
 
 {% else %}
 
-<form
-  method="POST"
-  action="{{ url_for('chores.assign') }}"
-  class="planning-form"
->
+<form method="POST" action="{{ url_for('chores.assign') }}" class="game-form">
   <div class="planning-slider">
     <div class="planning-track">
       <!-- STEG 1: VÄLJ UPPGIFTER -->
@@ -96,7 +92,12 @@
           {% for child in children %}
 
           <label class="family-member selectable-member">
-            <input type="checkbox" name="child_id" value="{{ child.id }}" required="true"/>
+            <input
+              type="checkbox"
+              name="child_id"
+              value="{{ child.id }}"
+              required="true"
+            />
 
             <div class="avatar">
               <img
@@ -113,9 +114,16 @@
 
           {% endfor %}
         </div>
-        <div class="game-calendar">
-          <label for="date"></label>
-          <input class="date" name="dates"/>
+        <div class="form-group">
+          <label for="dates"> Datum </label>
+          <input
+            type="date"
+            id="dates"
+            name="dates"
+            class="game-input date"
+            required
+            autocomplete="given-name"
+          />
         </div>
         <div class="button-group">
           <button
