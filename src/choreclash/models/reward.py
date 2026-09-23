@@ -22,9 +22,8 @@ class Reward2Child(Base):
         - this allows for chore2Child.child to access the child object
 
     params:
-        child: Child object
-        chore: Chore object
-        occurences: Occurences object
+        child_id: int: ForeignKey to child_table
+        reward_id: int: ForeignKey to reward_table
     """
     __tablename__ = "reward_2_child_table"
 
@@ -44,8 +43,10 @@ class RewardOccurence(Base):
     It includes details such as the date of the occurrence, status such as used, unused,
     and the associated reward assignment.
 
-    used: bool, False default
-    date: Optional|datetime, defaults datetime.today
+    Params:
+        reward_2_child_id: int : foreignkey to reward_2_child table
+        used: bool, False default
+        date: datetime, defaults date.today
     """
     
     __tablename__ = "reward_occurrence_table"
