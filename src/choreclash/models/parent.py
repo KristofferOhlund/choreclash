@@ -19,6 +19,13 @@ class Parent(Base):
     password_hash: bcrypt hash
     created_at: datetime
     children: List of Child objects
+
+    Params:
+          first_name: str
+          last_name: str
+          avatar_url: str
+          email: str
+          password: str
     """
 
     __tablename__ = "parent_table"
