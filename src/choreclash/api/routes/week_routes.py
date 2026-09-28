@@ -3,7 +3,7 @@ from flask import (
 
 from choreclash.db.db import DB
 from choreclash.models.parent import Parent
-from choreclash.api.services import parent_service
+from choreclash.api.services import parent_service, child_service
 
 
 week_bp = Blueprint(
@@ -18,5 +18,10 @@ def week():
     parent_id = session.get("parent_id")
     if not parent_id:
         return redirect("auth.login")
-    return render_template("week.html")
+
+    children = child_service.get_all_children()
+    print("HÄR ÄR BARNEN")
+    for child in children:
+        print(child.first_name)
+    return render_template("week.html", children=children)
     
