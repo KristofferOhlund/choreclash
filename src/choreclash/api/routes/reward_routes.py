@@ -40,19 +40,19 @@ def rewards():
 #     chore = reward_service.get_chore(chore_id)
 #     return render_template("edit_chore.html", chore=chore)
 
-# @rewards_bp.route("/rewards/create", methods=["GET", "POST"])
-# def create():
-#     parent_id = session.get("parent_id")
-#     if not parent_id:
-#         flash("You must be logged in to access this page.", "error")
-#         return redirect(url_for("auth.login"))
+@rewards_bp.route("/rewards/create", methods=["GET", "POST"])
+def create():
+    parent_id = session.get("parent_id")
+    if not parent_id:
+        flash("You must be logged in to access this page.", "error")
+        return redirect(url_for("auth.login"))
 
-#     if request.method == "POST":
-#         reward_service.create_chore(request.form)
-#         flash("Chore created successfully.", "success")
-#         return redirect(url_for("rewards.rewards"))
+    if request.method == "POST":
+        reward_service.create_reward(request.form)
+        flash("Reward created successfully.", "success")
+        return redirect(url_for("rewards.rewards"))
 
-#     return render_template("create_chore.html")
+    return render_template("create_reward.html")
 
 
 # @rewards_bp.route("/rewards/<int:chore_id>/delete", methods=["POST"])

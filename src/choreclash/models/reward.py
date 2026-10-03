@@ -5,6 +5,13 @@ from sqlalchemy import String, ForeignKey
 from datetime import datetime as date_type # to avoid sqlalchemy date
 
 class Reward(Base):
+    """
+    Args:
+        title: str
+        descirpiton: str
+        reward_type: str: weekly | daily
+        icon: str | path
+    """
     __tablename__ = "reward_table"
 
     id: Mapped[int] = mapped_column(primary_key=True)

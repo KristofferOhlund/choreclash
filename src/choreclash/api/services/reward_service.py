@@ -70,7 +70,7 @@ def create_reward(reward_data: dict):
     db = DB()
     try:
         with db.get_session() as db_session:
-            new_reward = reward(**reward_data)
+            new_reward = Reward(**reward_data)
             db_session.add(new_reward)
             db_session.commit()
     except Exception as e:
