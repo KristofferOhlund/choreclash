@@ -75,3 +75,23 @@ def create_child(child_data: dict):
         new_child = Child(**child_data)
         session.add(new_child)
         session.commit()
+
+
+def get_all_children():
+    """
+    Get all children and their assignments
+
+    Returns:
+        Child objects with all of its sub objects (relationships)
+    """
+
+    
+    db = DB()
+    with db.get_session() as session:
+        children = session.scalars(select(Child)
+                .options(
+                selectinload(Child.chore_assignments)
+                .selectinload(Chore2Child.chore),
+                selectinload(Child.chore_assignments)
+                .selectinload(Chore2Child.occurrences))).all()
+        return children

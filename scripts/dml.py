@@ -36,3 +36,14 @@ with Session(engine) as session:
     except Exception as e:
         print(f"Error occurred while adding reward : {e}")
         session.rollback()
+
+# INSERT parent (admin) user
+with Session(engine) as session:
+    parent = models.Parent(first_name="Admin", last_name="Admin", email="admin@gmail.com", 
+                           password_hash="Adminpassw0rd!")
+    try:
+        session.add(parent)
+        session.commit()
+    except Exception as e:
+        print(f"Error occurred while creating admin : {e}")
+        session.rollback()
