@@ -10,8 +10,8 @@ from dotenv import load_dotenv
 # from choreclash.api.routes.child_routes import child_bp
 from choreclash.api.errors.handlers import register_error_handlers
 
-from choreclash.api.routes import (parent_routes, auth_routes, index_route,
-                                   chore_routes, child_routes, reward_routes, week_routes)
+from choreclash.api.routes import (dashboard_routes, parent_routes, auth_routes, index_route,
+                                   chore_routes, child_routes, reward_routes)
 
 # Set .env efile in os.environ
 load_dotenv()
@@ -27,7 +27,7 @@ app.register_blueprint(index_route.index_bp)
 app.register_blueprint(chore_routes.chores_bp)
 app.register_blueprint(child_routes.child_bp)
 app.register_blueprint(reward_routes.rewards_bp)
-app.register_blueprint(week_routes.week_bp)
+app.register_blueprint(dashboard_routes.dashboard_bp)
 
 # Register Handlers
 register_error_handlers(app)

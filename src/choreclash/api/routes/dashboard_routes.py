@@ -6,15 +6,15 @@ from choreclash.models.parent import Parent
 from choreclash.api.services import parent_service, child_service
 
 
-week_bp = Blueprint(
-    "week",
+dashboard_bp = Blueprint(
+    "dashboard",
     __name__,
 )
 
 db = DB()
 
-@week_bp.route("/week", methods=["GET"])
-def week():
+@dashboard_bp.route("/dashboard", methods=["GET"])
+def dashboard():
     parent_id = session.get("parent_id")
     if not parent_id:
         return redirect("auth.login")
@@ -23,5 +23,5 @@ def week():
     print("HÄR ÄR BARNEN")
     for child in children:
         print(child.first_name)
-    return render_template("week.html", children=children)
+    return render_template("dashboard.html", children=children)
     

@@ -1,102 +1,124 @@
+
 {% extends "base.html" %}
 
 {% block title %}
-Dashboard | ChoreClash
+    Veckans uppgifter | ChoreClash
 {% endblock %}
 
 {% block content %}
 
-<section>
+<section class="week-container">
 
+    <div class="game-card week-card">
 
+        <div class="game-icon">📅</div>
 
+        <h1>VECKANS UPPGIFTER</h1>
 
-<div class="game-card">
+        <p>
+            Samla stjärnor genom att klara veckans uppgifter!
+        </p>
 
-    <div class="game-icon">
-        🏆
-    </div>
+        <div class="week-calendar">
 
-    <h1>VECKANS UPPDRAG</h1>
+            <!-- Kalenderns header -->
+            <div class="calendar-header">
 
-    <p>
-        Här ser du familjens uppdrag och vad som behöver göras idag.
-    </p>
+                {% for day in week_days %}
+                <div class="calendar-day-header">
+                    {{ day.name }}
+                </div>
+                {% endfor %}
 
-    <div class="button-group">
+            </div>
 
-        <a
-            href="#"
-            class="game-button primary"
-        >
-            NYTT UPPDRAG
-        </a>
+            <!-- Kalenderns innehåll -->
+            <div class="calendar-body">
 
-        <a
-            href="#"
-            class="game-button secondary"
-        >
-            HANTERA BARN
-        </a>
+                {% for day in week_days %}
 
-    </div>
+                <div class="calendar-day">
 
-</div>
+                    <!-- Datum -->
+                    <div class="calendar-date">
+                        {{ day.date.strftime('%d/%m') }}
+                    </div>
 
+                    <!-- Dagens uppgifter -->
+                    <div class="calendar-chores">
 
-<div class="features">
+                        {% for occurrence in day.occurrences %}
 
-    <div class="feature">
+                        <div class="calendar-chore
+                            {% if occurrence.is_complete %}
+                                completed
+                            {% endif %}
+                        ">
 
-        <span class="feature-icon">
-            ⚔️
-        </span>
+                            <!-- Barnets avatar och namn -->
+                            <div class="chore-child">
 
-        <div>
-            <h3>Uppdrag</h3>
+                                <div class="chore-avatar">
+                                    <img
+                                        src="#"
+                                        alt="{{ occurrence.assignment.child.first_name }}"
+                                    >
+                                </div>
 
-            <p>
-                Se och hantera familjens uppdrag.
-            </p>
+                                <span class="child-name">
+                                    {{ occurrence.assignment.child.first_name }}
+                                </span>
+
+                            </div>
+
+                            <!-- Sysslan -->
+                            <div class="chore-title">
+                                {{ occurrence.assignment.chore.title }}
+                            </div>
+
+                            <!-- Stjärna för färdig syssla -->
+                            <form
+                                method="POST"
+                                action="#"
+                                class="star-form"
+                            >
+
+                                <button
+                                    type="submit"
+                                    class="star-button"
+                                    aria-label="{% if occurrence.is_complete %}Markera som ej färdig{% else %}Markera som färdig{% endif %}"
+                                    title="{% if occurrence.is_complete %}Markera som ej färdig{% else %}Markera som färdig{% endif %}"
+                                >
+                                    {% if occurrence.is_complete %}
+                                        <span class="star filled">★</span>
+                                    {% else %}
+                                        <span class="star empty">☆</span>
+                                    {% endif %}
+                                </button>
+
+                            </form>
+
+                        </div>
+
+                        {% endfor %}
+
+                        {% if not day.occurrences %}
+                            <div class="no-chores">
+                                Inga uppgifter
+                            </div>
+                        {% endif %}
+
+                    </div>
+
+                </div>
+
+                {% endfor %}
+
+            </div>
+
         </div>
 
     </div>
-
-
-    <div class="feature">
-
-        <span class="feature-icon">
-            🏆
-        </span>
-
-        <div>
-            <h3>Veckans status</h3>
-
-            <p>
-                Följ hur veckan går för varje barn.
-            </p>
-        </div>
-
-    </div>
-
-
-    <div class="feature">
-
-        <span class="feature-icon">
-            ⭐
-        </span>
-
-        <div>
-            <h3>Framsteg</h3>
-
-            <p>
-                Klara uppdrag och samla poäng.
-            </p>
-        </div>
-
-    </div>
-
-</div>
 
 </section>
 
