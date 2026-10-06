@@ -1,12 +1,7 @@
+from datetime import datetime, date, timedelta
+import locale
 
-
-
-
-
-
-from datetime import datetime, date
-
-print()
+locale.setlocale(0, 'sv_SE') # använd svenska namn för veckodagar
 
 def create_list_from_string(string) -> list:
     """
@@ -33,3 +28,26 @@ def format_dates(dates:list) -> date:
         list: A list of date objects.
     """
     return [datetime.strptime(date, "%Y-%m-%d").date() for date in dates]
+
+
+def get_dates_in_current_week():
+    """
+    Get all dates in current week.
+
+    Returns:
+        list of datetime.date objects
+    """
+    today = date.today()
+    monday = today - timedelta(days=today.weekday())
+
+    # Get list of datetime.date objects
+    return [
+        monday + timedelta(days=i)
+        for i in range(7)
+    ]
+
+def get_current_week_number():
+    """
+    Return the current week as int
+    """
+    return date.today().isocalendar().week
