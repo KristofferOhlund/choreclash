@@ -23,98 +23,41 @@
 
             <!-- Kalenderns header -->
             <div class="calendar-header">
-
-                {% for day in week_days %}
+                {% for date in week_days %}
                 <div class="calendar-day-header">
-                    {{ day.name }}
+                    {{ date.strftime("%A") }}
+                    <div class="calendar-date">
+                        {{ date }}
+                    </div>
                 </div>
                 {% endfor %}
-
             </div>
 
             <!-- Kalenderns innehåll -->
             <div class="calendar-body">
 
-                {% for day in week_days %}
-
+                {% for date in week_days %}
                 <div class="calendar-day">
-
-                    <!-- Datum -->
-                    <div class="calendar-date">
-                        {{ day.date.strftime('%d/%m') }}
-                    </div>
-
-                    <!-- Dagens uppgifter -->
-                    <div class="calendar-chores">
-
-                        {% for occurrence in day.occurrences %}
-
-                        <div class="calendar-chore
-                            {% if occurrence.is_complete %}
-                                completed
-                            {% endif %}
-                        ">
-
-                            <!-- Barnets avatar och namn -->
+                    {% for chore in chores %}
+                    
+                    {% if chore.date == date %}
+                    <!-- Barnets avatar och namn -->
                             <div class="chore-child">
-
                                 <div class="chore-avatar">
                                     <img
                                         src="#"
-                                        alt="{{ occurrence.assignment.child.first_name }}"
+                                        alt="{{ chore.assignment.child.avatar_url }}"
                                     >
-                                </div>
-
-                                <span class="child-name">
-                                    {{ occurrence.assignment.child.first_name }}
+                                    <span class="child-name">
+                                    {{ chore.assignment.child.first_name }}
                                 </span>
-
+                                </div>
                             </div>
-
-                            <!-- Sysslan -->
-                            <div class="chore-title">
-                                {{ occurrence.assignment.chore.title }}
-                            </div>
-
-                            <!-- Stjärna för färdig syssla -->
-                            <form
-                                method="POST"
-                                action="#"
-                                class="star-form"
-                            >
-
-                                <button
-                                    type="submit"
-                                    class="star-button"
-                                    aria-label="{% if occurrence.is_complete %}Markera som ej färdig{% else %}Markera som färdig{% endif %}"
-                                    title="{% if occurrence.is_complete %}Markera som ej färdig{% else %}Markera som färdig{% endif %}"
-                                >
-                                    {% if occurrence.is_complete %}
-                                        <span class="star filled">★</span>
-                                    {% else %}
-                                        <span class="star empty">☆</span>
-                                    {% endif %}
-                                </button>
-
-                            </form>
-
-                        </div>
-
-                        {% endfor %}
-
-                        {% if not day.occurrences %}
-                            <div class="no-chores">
-                                Inga uppgifter
-                            </div>
-                        {% endif %}
-
-                    </div>
-
+                    {% endif %}
+                    {% endfor %}
                 </div>
-
                 {% endfor %}
-
-            </div>
+            
 
         </div>
 

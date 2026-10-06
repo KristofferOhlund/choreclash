@@ -2,10 +2,11 @@
 ChoreOccurence module service to handle ChoreOccurences
 """
 from flask import session
-from choreclash.models import Chore2Child, ChoreOccurence
+from sqlalchemy import select
+from sqlalchemy.orm import selectinload
+from choreclash.models import Chore2Child, ChoreOccurence, Parent
 from datetime import datetime
-from choreclash.api.helpers.string_helper import create_list_from_string, format_dates
-
+from choreclash.api.helpers import helpers
 from choreclash.db.db import DB
 
 def create_chore_occurence(chore2child: list[Chore2Child], dates:list[datetime]):
@@ -17,8 +18,8 @@ def create_chore_occurence(chore2child: list[Chore2Child], dates:list[datetime])
         dates: list of dates as datetime objects
     """
     
-    list_of_dates = create_list_from_string(dates)
-    datetime_dates = format_dates(list_of_dates)
+    list_of_dates = helpers.create_list_from_string(dates)
+    datetime_dates = helpers.format_dates(list_of_dates)
 
     db = DB()
     try:
@@ -31,3 +32,41 @@ def create_chore_occurence(chore2child: list[Chore2Child], dates:list[datetime])
     except Exception as e:
         print(f"Error creating chore2child: {e}")
         session.rollback()
+
+
+def get_chore_occurences_by_week(parent_id : str, week_number : str = None):
+    """
+    Return all chores based on week number and parent id
+
+    Params:
+        parent_id: str: the ID of the parent
+        week_number: str: week number as string
+
+    Returns:
+        List of ChoreOccurence objects, including relationships (eager loading)
+    """
+
+    # Default week_number
+    if week_number is None:
+        week_number = datetime.today().isocalendar().week
+
+    # Date ranges in week_number
+    dates = helpers.get_dates_in_current_week()
+    monday, sunday = min(dates), max(dates)
+
+    db = DB()
+    with db.get_session() as session:
+        occurences = session.scalars(select(ChoreOccurence)
+                .options(
+                selectinload(ChoreOccurence.assignment)
+                .selectinload(Chore2Child.chore),
+                selectinload(ChoreOccurence.assignment)
+                .selectinload(Chore2Child.child))).all()
+        # .where(
+        #     Parent.id == parent_id,
+        #     ChoreOccurence.date >= monday,
+        #     ChoreOccurence.date <= sunday
+        #     )
+        #     ).all()
+
+        return occurences

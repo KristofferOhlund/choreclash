@@ -3,7 +3,8 @@ from flask import (
 
 from choreclash.db.db import DB
 from choreclash.models.parent import Parent
-from choreclash.api.services import parent_service, child_service
+from choreclash.api.services import parent_service, child_service, occurence_service
+from choreclash.api.helpers.helpers import get_dates_in_current_week
 
 
 dashboard_bp = Blueprint(
@@ -20,8 +21,18 @@ def dashboard():
         return redirect("auth.login")
 
     children = child_service.get_all_children()
-    print("HÄR ÄR BARNEN")
-    for child in children:
-        print(child.first_name)
-    return render_template("dashboard.html", children=children)
+
+    # Current Week
+    current_week = get_dates_in_current_week()
+   
+    # UPPGIFTER
+    chore_occurences = occurence_service.get_chore_occurences_by_week(parent_id=parent_id)
+
+    for oc in chore_occurences:
+        print(oc.assignment.chore.title)
+        print(oc.assignment.child.first_name)
+        print(oc.assignment.child.avatar_url)
+        print(oc.date)
+
+    return render_template("dashboard.html", chores=chore_occurences, week_days=current_week)
     

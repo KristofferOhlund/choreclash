@@ -27,6 +27,7 @@
                         <tr>
                             <th>Syssla</th>
                             <th>Datum</th>
+                            <th>Dag</th>
                             <th>Status</th>
                         </tr>
                     </thead>
@@ -37,6 +38,7 @@
                         <tr>
                             <td>{{ chore2child.chore.title }}</td>
                             <td>{{ occurrence.date }}</td>
+                            <td>{{ occurrence.date.strftime("%A") }}</td>
                             <td>
                                 {% if occurrence.is_complete %}
                                 <span class="status-icon" title="Färdig" aria-label="Färdig">✅</span>
