@@ -1,68 +1,66 @@
-
-{% extends "base.html" %}
-
-{% block title %}
-    Veckans uppgifter | ChoreClash
-{% endblock %}
-
-{% block content %}
+{% extends "base.html" %} {% block title %} Veckans uppgifter | ChoreClash {%
+endblock %} {% block content %}
 
 <section class="week-container">
+  <div class="game-card week-card">
+    <div class="game-icon">📅</div>
 
-    <div class="game-card week-card">
+    <h1>VECKANS UPPGIFTER</h1>
 
-        <div class="game-icon">📅</div>
+    <p>Samla stjärnor genom att klara veckans uppgifter!</p>
 
-        <h1>VECKANS UPPGIFTER</h1>
-
-        <p>
-            Samla stjärnor genom att klara veckans uppgifter!
-        </p>
-
-        <div class="week-calendar">
-
-            <!-- Kalenderns header -->
-            <div class="calendar-header">
-                {% for date in week_days %}
-                <div class="calendar-day-header">
-                    {{ date.strftime("%A") }}
-                    <div class="calendar-date">
-                        {{ date }}
-                    </div>
-                </div>
-                {% endfor %}
-            </div>
-
-            <!-- Kalenderns innehåll -->
-            <div class="calendar-body">
-
-                {% for date in week_days %}
-                <div class="calendar-day">
-                    {% for chore in chores %}
-                    
-                    {% if chore.date == date %}
-                    <!-- Barnets avatar och namn -->
-                            <div class="chore-child">
-                                <div class="chore-avatar">
-                                    <img
-                                        src="#"
-                                        alt="{{ chore.assignment.child.avatar_url }}"
-                                    >
-                                    <span class="child-name">
-                                    {{ chore.assignment.child.first_name }}
-                                </span>
-                                </div>
-                            </div>
-                    {% endif %}
-                    {% endfor %}
-                </div>
-                {% endfor %}
-            
-
+    <div class="week-calendar">
+      <!-- Kalenderns header -->
+      <div class="calendar-header">
+        {% for date in week_days %}
+        <div class="calendar-day-header">
+          {{ date.strftime("%A") }}
+          <div class="calendar-date">{{ date }}</div>
         </div>
+        {% endfor %}
+      </div>
 
+      <!-- Kalenderns innehåll -->
+      <div class="calendar-body">
+        {% for date in week_days %}
+        <div class="calendar-day">
+          {% for chore in chores %} {% if chore.date == date %}
+          <!-- Visa Chore på rätt dag -->
+          <div class="chore-container">
+            <div class="child-avatar">
+                <img src="#" alt="{{ chore.assignment.child.avatar_url }}" />
+                <span class="child-name">
+                  {{ chore.assignment.child.first_name }}
+                </span>
+              </div>
+            <div class="chore">
+              
+
+              <p class="chore-title">{{ chore.assignment.chore.title }}</p>
+
+              <!-- Stjärna för färdig syssla -->
+              <form method="POST" action="#" class="star-form">
+                <button
+                  type="submit"
+                  class="star-button"
+                  aria-label="{% if chore.is_complete %}Markera som ej färdig{% else %}Markera som färdig{% endif %}"
+                  title="{% if chore.is_complete %}Markera som ej färdig{% else %}Markera som färdig{% endif %}"
+                >
+                  {% if chore.is_complete %}
+                  <span class="star filled">★</span>
+                  {% else %}
+                  <span class="star empty">☆</span>
+                  {% endif %}
+                </button>
+              </form>
+            </div>
+          </div>
+          {% endif %} {% endfor %}
+        </div>
+        {% endfor %}
+      </div>
     </div>
 
+    {% endblock %}
+  </div>
 </section>
-
-{% endblock %}

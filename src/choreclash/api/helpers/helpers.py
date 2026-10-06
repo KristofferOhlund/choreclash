@@ -51,3 +51,8 @@ def get_current_week_number():
     Return the current week as int
     """
     return date.today().isocalendar().week
+
+def get_current_week_day():
+    """
+    Return the number of current day as int, monday = 0, sunday = 6 
+    """
