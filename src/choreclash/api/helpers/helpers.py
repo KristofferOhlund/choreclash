@@ -1,7 +1,4 @@
 from datetime import datetime, date, timedelta
-import locale
-
-locale.setlocale(0, 'sv_SE') # använd svenska namn för veckodagar
 
 def create_list_from_string(string) -> list:
     """
@@ -45,6 +42,25 @@ def get_dates_in_current_week():
         monday + timedelta(days=i)
         for i in range(7)
     ]
+
+def get_days_from_dates(dates: list):
+    """
+    Get the swedish names of days from a list of datetime dates
+    """
+    DAYS = {
+        "Monday": "Måndag",
+        "Tuesday": "Tisdag",
+        "Wednesday": "Onsdag",
+        "Thursday": "Torsdag",
+        "Friday": "Fredag",
+        "Saturday": "Lördag",
+        "Sunday": "Söndag",
+    }
+
+    return [
+        DAYS[date.strftime("%A")] for date in dates
+    ]
+
 
 def get_current_week_number():
     """

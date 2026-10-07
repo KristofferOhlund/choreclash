@@ -4,7 +4,7 @@ from flask import (
 from choreclash.db.db import DB
 from choreclash.models.parent import Parent
 from choreclash.api.services import parent_service, child_service, occurence_service
-from choreclash.api.helpers.helpers import get_dates_in_current_week
+from choreclash.api.helpers.helpers import get_dates_in_current_week, get_days_from_dates
 
 
 dashboard_bp = Blueprint(
@@ -20,11 +20,13 @@ def dashboard():
     if not parent_id:
         return redirect("auth.login")
 
-    # Current Week
-    current_week = get_dates_in_current_week()
+    # Current Week dates
+    week_dates = get_dates_in_current_week()
+
+    # Day headers
+    header_days = get_days_from_dates(week_dates)
    
     # Chore Occurences
     chore_occurences = occurence_service.get_chore_occurences_by_week(parent_id=parent_id)
 
-    return render_template("dashboard.html", chores=chore_occurences, week_days=current_week)
-    
+    return render_template("dashboard.html", chores=chore_occurences, week_dates=week_dates, header_days=header_days)

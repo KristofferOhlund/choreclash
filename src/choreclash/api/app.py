@@ -1,15 +1,8 @@
 from os import getenv
 from flask import Flask
 from dotenv import load_dotenv
-
-# blueprints
-# from choreclash.api.routes.parent_routes import parent_bp
-# from choreclash.api.routes.auth_routes import auth_bp
-# from choreclash.api.routes.index_route import index_bp
-# from choreclash.api.routes.chore_routes import chores_bp
-# from choreclash.api.routes.child_routes import child_bp
 from choreclash.api.errors.handlers import register_error_handlers
-
+from choreclash.api.helpers.helpers import get_days_from_dates
 from choreclash.api.routes import (dashboard_routes, parent_routes, auth_routes, index_route,
                                    chore_routes, child_routes, reward_routes)
 
@@ -28,6 +21,7 @@ app.register_blueprint(chore_routes.chores_bp)
 app.register_blueprint(child_routes.child_bp)
 app.register_blueprint(reward_routes.rewards_bp)
 app.register_blueprint(dashboard_routes.dashboard_bp)
+app.jinja_env.globals["get_days_from_dates"] = get_days_from_dates
 
 # Register Handlers
 register_error_handlers(app)

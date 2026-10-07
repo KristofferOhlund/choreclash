@@ -38,7 +38,7 @@
                         <tr>
                             <td>{{ chore2child.chore.title }}</td>
                             <td>{{ occurrence.date }}</td>
-                            <td>{{ occurrence.date.strftime("%A") }}</td>
+                            <td>{{ get_days_from_dates([occurrence.date])[0] }}</td>
                             <td>
                                 {% if occurrence.is_complete %}
                                 <span class="status-icon" title="Färdig" aria-label="Färdig">✅</span>

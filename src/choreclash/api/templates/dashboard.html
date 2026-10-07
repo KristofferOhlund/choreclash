@@ -12,17 +12,16 @@ endblock %} {% block content %}
     <div class="week-calendar">
       <!-- Kalenderns header -->
       <div class="calendar-header">
-        {% for date in week_days %}
+        {% for day in header_days %}
         <div class="calendar-day-header">
-          {{ date.strftime("%A") }}
-          <div class="calendar-date">{{ date }}</div>
+          {{ day }}
         </div>
         {% endfor %}
       </div>
 
       <!-- Kalenderns innehåll -->
       <div class="calendar-body">
-        {% for date in week_days %}
+        {% for date in week_dates %}
         <div class="calendar-day">
           {% for chore in chores %} {% if chore.date == date %}
           <!-- Visa Chore på rätt dag -->
