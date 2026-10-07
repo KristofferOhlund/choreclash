@@ -28,23 +28,26 @@ endblock %} {% block content %}
           <!-- Visa Chore på rätt dag -->
           <div class="chore-container">
             <div class="child-avatar">
-                <img src="#" alt="{{ chore.assignment.child.avatar_url }}" />
-                <span class="child-name">
-                  {{ chore.assignment.child.first_name }}
-                </span>
-              </div>
+              <img src="#" alt="{{ chore.assignment.child.avatar_url }}" />
+              <span class="child-name">
+                {{ chore.assignment.child.first_name }}
+              </span>
+            </div>
             <div class="chore">
-              
-
               <p class="chore-title">{{ chore.assignment.chore.title }}</p>
 
               <!-- Stjärna för färdig syssla -->
-              <form method="POST" action="#" class="star-form">
+              <form
+                method="POST"
+                action="{{ url_for('chores.toggle', occurence_id=chore.id) }}"
+                class="star-form"
+              >
                 <button
                   type="submit"
                   class="star-button"
                   aria-label="{% if chore.is_complete %}Markera som ej färdig{% else %}Markera som färdig{% endif %}"
-                  title="{% if chore.is_complete %}Markera som ej färdig{% else %}Markera som färdig{% endif %}"
+                  title="{% if chore.is_complete %}Markera som ej färdig{% else %}Markera som färdig
+                  {% endif %}"
                 >
                   {% if chore.is_complete %}
                   <span class="star filled">★</span>

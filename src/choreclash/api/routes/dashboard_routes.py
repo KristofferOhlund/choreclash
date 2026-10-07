@@ -26,12 +26,5 @@ def dashboard():
     # Chore Occurences
     chore_occurences = occurence_service.get_chore_occurences_by_week(parent_id=parent_id)
 
-    for oc in chore_occurences:
-        print(oc.assignment.chore.title)
-        print(oc.assignment.child.first_name)
-        print(oc.assignment.child.avatar_url)
-        print(oc.date)
-        print(oc.is_complete)
-
     return render_template("dashboard.html", chores=chore_occurences, week_days=current_week)
     

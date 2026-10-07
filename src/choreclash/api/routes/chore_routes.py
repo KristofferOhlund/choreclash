@@ -88,3 +88,14 @@ def assign():
 
     return render_template("chore2child.html", chores=chores, children=children)
 
+@chores_bp.route("/chores/<int:occurence_id>/toggle", methods=["POST"])
+def toggle(occurence_id:str = None):
+    parent_id = session.get("parent_id")
+    if not parent_id:
+        flash("You must be logged in to access this page.", "error")
+        return redirect(url_for("auth.login"))
+    if request.method == "POST":        
+        # toggle chore occurence based on parent ID and chore ID
+        occurence_service.toggle_chore_occurence(occurence_id=occurence_id, parent_id=parent_id)
+
+    return redirect(url_for("dashboard.dashboard"))

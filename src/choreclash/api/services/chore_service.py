@@ -2,11 +2,12 @@
 Chore service module for managing chores.
 """
 from flask import session
-from choreclash.models.chores import Chore
+from sqlalchemy import select
+from choreclash.models import Chore, Parent
 from choreclash.db.db import DB
 
 
-def get_chore(chore_id: str):
+def get_chore(chore_id: str, parent_id: str):
     """
     Get a chore by its ID.
 
@@ -15,7 +16,11 @@ def get_chore(chore_id: str):
     """
     db = DB()
     with db.get_session() as db_session:
-        chore = db_session.query(Chore).filter_by(id=chore_id).first()
+        chore = db_session.scalar(select(Chore).where(
+            Chore.id == chore_id,
+            Parent.id == parent_id
+            ))
+
         return chore
 
 def get_chores():

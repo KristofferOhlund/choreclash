@@ -70,3 +70,26 @@ def get_chore_occurences_by_week(parent_id : str, week_number : str = None):
         #     ).all()
 
         return occurences
+
+
+def toggle_chore_occurence(occurence_id : str = None, parent_id: str = None):
+    """
+    Toggle a chore occurence based on occurence and parent ID
+    """
+    db = DB()
+    with db.get_session() as db_session:
+        occurence = db_session.scalar(select(ChoreOccurence).where(
+            ChoreOccurence.id == occurence_id,
+            Parent.id == parent_id
+            ))
+        try:
+            if occurence.is_complete:
+                occurence.is_complete = False
+            else:
+                occurence.is_complete = True
+
+            db_session.add(occurence)
+            db_session.commit()
+        except Exception as e:
+            db_session.rollback()
+            return("something went wrong", e)

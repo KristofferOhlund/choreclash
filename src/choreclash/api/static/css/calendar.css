@@ -78,7 +78,7 @@
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
+    justify-content: flex-start;
 }
 
 .calendar-date {
