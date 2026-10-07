@@ -1,5 +1,15 @@
 from datetime import datetime, date, timedelta
 
+DAYS = {
+    "Monday": "Måndag",
+    "Tuesday": "Tisdag",
+    "Wednesday": "Onsdag",
+    "Thursday": "Torsdag",
+    "Friday": "Fredag",
+    "Saturday": "Lördag",
+    "Sunday": "Söndag",
+}
+
 def create_list_from_string(string) -> list:
     """
     Create a list from a string where the string is a comma-separated list of items.
@@ -46,20 +56,30 @@ def get_dates_in_current_week():
 def get_days_from_dates(dates: list):
     """
     Get the swedish names of days from a list of datetime dates
-    """
-    DAYS = {
-        "Monday": "Måndag",
-        "Tuesday": "Tisdag",
-        "Wednesday": "Onsdag",
-        "Thursday": "Torsdag",
-        "Friday": "Fredag",
-        "Saturday": "Lördag",
-        "Sunday": "Söndag",
-    }
 
+    Params:
+        dates: list: list of datetime.dates objects
+
+    Returns:
+        list: list of days name in Swedish
+    """
     return [
         DAYS[date.strftime("%A")] for date in dates
     ]
+
+def get_day_from_date(value: date):
+    """
+    Return the swedish name for a day, based on date
+
+    Params:
+        date: datetime.date object
+
+    Returns:
+        day: str: day of name in Swedish
+    """
+    if not isinstance(value, date):
+        raise ValueError(f"Date has to be datetime.date object, recieved {type(date)}")
+    return DAYS[value.strftime("%A")]
 
 
 def get_current_week_number():

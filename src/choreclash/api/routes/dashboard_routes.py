@@ -29,4 +29,10 @@ def dashboard():
     # Chore Occurences
     chore_occurences = occurence_service.get_chore_occurences_by_week(parent_id=parent_id)
 
-    return render_template("dashboard.html", chores=chore_occurences, week_dates=week_dates, header_days=header_days)
+    # All chores for the day is completed
+    days_where_chores_are_complete = occurence_service.check_daily_chores_complete(chore_occurences)
+    print(days_where_chores_are_complete)
+
+    return render_template("dashboard.html", 
+                           chores=chore_occurences, week_dates=week_dates, header_days=header_days,
+                           daily_reward=None)
