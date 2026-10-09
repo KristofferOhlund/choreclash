@@ -32,7 +32,12 @@ def create_child():
 
 @child_bp.route("/child/<int:child_id>", methods=["GET"])
 def child_profile(child_id):
-    child = child_service.get_child(child_id)
+    parent_id = session.get("parent_id")
+    if not parent_id:
+        flash("Cant find parent id")
+        return redirect(url_for("auth.login"))
+
+    child = child_service.get_child(parent_id=parent_id, child_id=child_id)
     if not child:
         flash("Child not found.", "error")
         return redirect(url_for("parent.canvas"))

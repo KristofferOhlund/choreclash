@@ -34,40 +34,46 @@ def create_chore_occurence(chore2child: list[Chore2Child], dates:list[datetime])
         session.rollback()
 
 
-def get_chore_occurences_by_week(parent_id : str, week_number : str = None):
+def get_chore_occurences(parent_id : int, child_id : int = None, start_date : datetime = None, end_date : datetime = None)-> list[ChoreOccurence]:
     """
-    Return all chores based on week number and parent id
-
+    Return a list of ChoreOccurence.
+    If child_id, filters occurences based on child id, defaults to None. If not child_id, returns all ChoreOccurences.
+    Start and end date are optional, defaults to None
+    
     Params:
-        parent_id: str: the ID of the parent
-        week_number: str: week number as string
-
+        parent_id: int: The ID of a parent
+        child_id: int: The ID of a child, defaults to None
+        start_date: optional, if start date, returns occurence >= to start_date
+        end_date: optional, if start date, returns occurence <= to start_date
+    
     Returns:
-        List of ChoreOccurence objects, including relationships (eager loading)
+        list[ChoreOccurence]: list of ChoreOccurences
     """
 
-    # Default week_number
-    if week_number is None:
-        week_number = datetime.today().isocalendar().week
+    # Default start date
+    if not start_date:
+        start_date = min(helpers.get_dates_in_current_week())
 
-    # Date ranges in week_number
-    dates = helpers.get_dates_in_current_week()
-    monday, sunday = min(dates), max(dates)
+    if not end_date:
+        end_date = max(helpers.get_dates_in_current_week())
 
     db = DB()
     with db.get_session() as session:
         occurences = session.scalars(select(ChoreOccurence)
+                .join(ChoreOccurence.assignment)
+                .join(Chore2Child.child)
                 .options(
                 selectinload(ChoreOccurence.assignment)
                 .selectinload(Chore2Child.chore),
                 selectinload(ChoreOccurence.assignment)
-                .selectinload(Chore2Child.child))).all()
-        # .where(
-        #     Parent.id == parent_id,
-        #     ChoreOccurence.date >= monday,
-        #     ChoreOccurence.date <= sunday
-        #     )
-        #     ).all()
+                .selectinload(Chore2Child.child))
+        .where(
+            Parent.id == parent_id,
+            Child.id == child_id,
+            ChoreOccurence.date >= start_date,
+            ChoreOccurence.date <= end_date
+            )
+            ).all()
 
         return occurences
 
@@ -94,33 +100,22 @@ def toggle_chore_occurence(occurence_id : str = None, parent_id: str = None):
             db_session.rollback()
             return("something went wrong", e)
 
-
-def get_occurences_by_date(date: str, child_id: str):
-    """
-    Return all on specific date, by child id
-    """
-    db = DB()
-    with db.get_session() as db_session:
-        occurences = db_session.scalars(select(ChoreOccurence).where(
-            ChoreOccurence.date == date,
-            Child.id == child_id
-            ))
-        return occurences
-
-
-# {def check_daily_chores_complete(dates: list) -> list: 
+# def check_daily_chores_complete(dates: list[datetime.date], parent_id: str) -> list: 
 #     """
 #     Return list of days where chores are complete.
 #     If all chores on monday are complete, return [Monday]
 #     If all chores for Monday and Thursday are complete, return ["Monday", "Thursday"]
 #     """
-#     days = {}
+#     days = []
 #     for date in dates:
-#         # get chores by date
-#         occurences = get_occurences_by_date(date)
-#         if all(lambda x: x.is_complete for x in occurences):
-#             days["child"] = 
-                    
+#         # get all chores by date
+#         occurences = get_occurences_by_date(date, parent_id=parent_id)
+
+
+#         if occurences and all(oc.is_complete for oc in occurences):
+#             days.append({
+#                 "Name": "",
+#                 "Days": set([oc.date for oc in occurences])
+#             })                
 
 #     return days
-# }

@@ -20,6 +20,9 @@ def dashboard():
     if not parent_id:
         return redirect("auth.login")
 
+    # All children of parent
+    children = child_service.get_children(parent_id=parent_id)
+    
     # Current Week dates
     week_dates = get_dates_in_current_week()
 
@@ -27,12 +30,25 @@ def dashboard():
     header_days = get_days_from_dates(week_dates)
    
     # Chore Occurences
-    chore_occurences = occurence_service.get_chore_occurences_by_week(parent_id=parent_id)
+    if children:
+        weekly_chore_occurences = []
+        for child in children:
+            weekly_chore_occurences.extend(occurence_service.get_chore_occurences(parent_id=parent_id, child_id=child.id))
 
-    # All chores for the day is completed
-    days_where_chores_are_complete = occurence_service.check_daily_chores_complete(chore_occurences)
-    print(days_where_chores_are_complete)
+    # Kontrollera om kids samtliga dagliga occurence är klara
+
+    # Hämta istället weekly_chore_occurence_by_child_id
+    # då blir det lätt att kontrollera respektive barns uppgifter
+    # Det svåra blir att loopa genom barnen, vi vet inte hur många barn
+
+    # Vi har alla veckans chores
+
+    # Vi behöver kolla om person x uppgifter för dag y är klara
+    # - dela veckans uppgifter per barn
+    # - kontrollera varje dag som barnet har uppgifter för
+
+    # Split chores by child
 
     return render_template("dashboard.html", 
-                           chores=chore_occurences, week_dates=week_dates, header_days=header_days,
+                           chores=weekly_chore_occurences, week_dates=week_dates, header_days=header_days,
                            daily_reward=None)

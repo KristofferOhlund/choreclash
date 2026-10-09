@@ -1,14 +1,12 @@
 """
 Child service module for managing children.
 """
-from choreclash.models.children import Child
-from choreclash.models.chore2child import Chore2Child
+from choreclash.models import Child, Chore2Child, Parent
 from choreclash.db.db import DB
 from sqlalchemy import select
 from sqlalchemy.orm import selectinload
 
-
-def get_child(child_id: str):
+def get_child(parent_id : int = None, child_id: int = None) -> Child:
     """
     Get a child and all of its relationship objects by its child ID.
 
@@ -18,7 +16,6 @@ def get_child(child_id: str):
     Returns:
         Child object with all of its sub objects (relationships)
     """
-
     
     db = DB()
     with db.get_session() as session:
@@ -28,7 +25,8 @@ def get_child(child_id: str):
                 .selectinload(Chore2Child.chore),
                 selectinload(Child.chore_assignments)
                 .selectinload(Chore2Child.occurrences))
-        .where(Child.id == child_id))
+        .where(
+            Parent.id == parent_id, Child.id == child_id))
         return child
 
 def update_child(child_id: str, updated_data: dict):
@@ -76,22 +74,16 @@ def create_child(child_data: dict):
         session.add(new_child)
         session.commit()
 
-
-def get_all_children():
+def get_children(parent_id : int) -> list[Child]:
     """
-    Get all children and their assignments
+    Get all children based on parent_id
 
     Returns:
-        Child objects with all of its sub objects (relationships)
+        list[Child]: list: list of child Objects
     """
 
-    
     db = DB()
     with db.get_session() as session:
         children = session.scalars(select(Child)
-                .options(
-                selectinload(Child.chore_assignments)
-                .selectinload(Chore2Child.chore),
-                selectinload(Child.chore_assignments)
-                .selectinload(Chore2Child.occurrences))).all()
+                .where(Parent.id == parent_id)).all()
         return children
