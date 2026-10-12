@@ -78,10 +78,16 @@ def get_chore_occurences(parent_id : int, child_id : int = None, start_date : da
         return occurences
 
 
-def toggle_chore_occurence(occurence_id : str = None, parent_id: str = None):
+def complete_chore_occurence(occurence_id : str = None, parent_id: str = None)-> None:
     """
-    Toggle a chore occurence based on occurence and parent ID
+    Complete a chore occurence based on occurence and parent ID
+    Only chores with todays date can be completed.
+
+    Params:
+        occurence_id: str: the ID of a ChoreOccurence
+        parent_id: str: the ID of a Parent
     """
+
     db = DB()
     with db.get_session() as db_session:
         occurence = db_session.scalar(select(ChoreOccurence).where(
@@ -89,33 +95,65 @@ def toggle_chore_occurence(occurence_id : str = None, parent_id: str = None):
             Parent.id == parent_id
             ))
         try:
-            if occurence.is_complete:
-                occurence.is_complete = False
-            else:
+            today = helpers.format_date(datetime.today())
+            oc_date = helpers.format_date(occurence.date)
+            if today == oc_date:
                 occurence.is_complete = True
-
             db_session.add(occurence)
             db_session.commit()
         except Exception as e:
             db_session.rollback()
             return("something went wrong", e)
 
-# def check_daily_chores_complete(dates: list[datetime.date], parent_id: str) -> list: 
-#     """
-#     Return list of days where chores are complete.
-#     If all chores on monday are complete, return [Monday]
-#     If all chores for Monday and Thursday are complete, return ["Monday", "Thursday"]
-#     """
-#     days = []
-#     for date in dates:
-#         # get all chores by date
-#         occurences = get_occurences_by_date(date, parent_id=parent_id)
+def check_daily_chores_complete(chores: list[ChoreOccurence]) -> list[str]: 
+    """
+    Return list of days where chores are complete.
+    If all chores on monday are complete, return [Monday]
+    If all chores for Monday and Thursday are complete, return ["Monday", "Thursday"]
+    """
 
+    raise NotImplementedError
+    days = {
+        "Måndag": {
+            "chores": [],
+            "chores_complete" : False
+        },
+        "Tisdag": {
+            "chores": [],
+            "chores_complete" : False
+        },
+        "Onsdag": {
+            "chores": [],
+            "chores_complete" : False
+        },
+        "Torsdag": {
+            "chores": [],
+            "chores_complete" : False
+        },
+        "Fredag": {
+            "chores": [],
+            "chores_complete" : False
+        },
+        "Lördag": {
+            "chores": [],
+            "chores_complete" : False
+        },
+        "Södag": {
+            "chores": [],
+            "chores_complete" : False
+        },
+        
+    }
 
-#         if occurences and all(oc.is_complete for oc in occurences):
-#             days.append({
-#                 "Name": "",
-#                 "Days": set([oc.date for oc in occurences])
-#             })                
+    # Split chores by day
+    for chore in chores:
+        swedish_day = helpers.get_swedish_day(chore.date.strftime("%A"))
+        days[swedish_day].chores.append(chore)
 
-#     return days
+    for day in days:
+        if all(chore.is_complete for chore in day["chores"]):
+            day["chores_complete"] = True
+            # reward_service skapar reward objecct
+            # child id, chore id, date
+
+    return days
