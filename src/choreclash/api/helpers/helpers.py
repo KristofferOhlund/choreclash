@@ -23,7 +23,6 @@ def create_list_from_string(string) -> list:
 
     return ",".join([item.replace(" ", "") for item in string]).split(",")
 
-
 def format_dates(dates:list) -> date:
     """
     Format a list of date strings into date objects. 
@@ -32,10 +31,23 @@ def format_dates(dates:list) -> date:
         dates (list): A list of date strings in the format "YYYY-MM-DD".
 
     Returns:
+    return [datetime.strptime(date, "%Y-%m-%d").date() for date in dates]
         list: A list of date objects.
     """
-    return [datetime.strptime(date, "%Y-%m-%d").date() for date in dates]
+    raise NotImplementedError
 
+def format_date(date:datetime) -> str:
+    """
+    Format a datetime object to YYYY-MM-DD
+
+    Args:
+        dates datetime object: 
+
+    Returns:
+        date: str: return date as str in YYYY-MM-DD format
+    """
+
+    return date.strftime("%Y-%m-%d")
 
 def get_dates_in_current_week():
     """
@@ -81,7 +93,6 @@ def get_day_from_date(value: date):
         raise ValueError(f"Date has to be datetime.date object, recieved {type(date)}")
     return DAYS[value.strftime("%A")]
 
-
 def get_current_week_number():
     """
     Return the current week as int
@@ -92,3 +103,10 @@ def get_current_week_day():
     """
     Return the number of current day as int, monday = 0, sunday = 6 
     """
+
+def get_swedish_day(day:str):
+    """
+    Return a days name in Swedish, Monday => Måndag
+    """
+    return DAYS.get(day)
+
