@@ -36,18 +36,22 @@ def format_dates(dates:list) -> date:
     """
     raise NotImplementedError
 
-def format_date(date:datetime) -> str:
+def format_date(value:datetime) -> datetime.date:
     """
-    Format a datetime object to YYYY-MM-DD
+    Format a datetime or str to YYYY-MM-DD
 
     Args:
-        dates datetime object: 
+        dates: datetime.date object: 
 
     Returns:
-        date: str: return date as str in YYYY-MM-DD format
+        date: datetime.date: with format 'YYYY-MM-DD'
     """
-
-    return date.strftime("%Y-%m-%d")
+    format = "%Y-%m-%d"
+    if isinstance(value, str):
+        return datetime.strptime(date, format).date()
+    date_str = datetime.strftime(value, format)
+    return datetime.strptime(date_str, format).date()
+    
 
 def get_dates_in_current_week():
     """
@@ -56,6 +60,9 @@ def get_dates_in_current_week():
     Returns:
         list of datetime.date objects
     """
+    # TODO
+    # replace call in occurence_service.py: start_date = min(helpers.get_dates_in_current_week())
+    # use get current_week and dates insted
     today = date.today()
     monday = today - timedelta(days=today.weekday())
 
@@ -64,6 +71,29 @@ def get_dates_in_current_week():
         monday + timedelta(days=i)
         for i in range(7)
     ]
+
+def get_current_week()->list[tuple]:
+    """
+    Get all dates and day names in current week.
+
+    Returns:
+        list of datetime.date objects {date: date, day:day}
+    """
+    today = datetime.today()
+    monday = today - timedelta(days=today.weekday())
+
+    # this weeks days and dates
+    week = []
+    
+    for i in range(7):
+        date = format_date(monday + timedelta(days=i))
+        day = get_day_from_date(date)
+        week.append({
+            "date": date,
+            "day": day
+        })
+
+    return week
 
 def get_days_from_dates(dates: list):
     """
@@ -90,7 +120,8 @@ def get_day_from_date(value: date):
         day: str: day of name in Swedish
     """
     if not isinstance(value, date):
-        raise ValueError(f"Date has to be datetime.date object, recieved {type(date)}")
+        value = datetime.strptime(value, "%Y-%m-%d")
+        # raise ValueError(f"Date has to be datetime.date object, recieved {type(date)}")
     return DAYS[value.strftime("%A")]
 
 def get_current_week_number():

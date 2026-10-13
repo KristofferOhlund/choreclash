@@ -13,19 +13,23 @@
     <div class="week-calendar">
       <!-- Kalenderns header -->
       <div class="calendar-header">
-        {% for day in header_days %}
+        {% for day in week %}
         <div class="calendar-day-header">
-          {{ day }}
+          {{ day["day"] }}
+          <p class="chore-date">{{ day["date"] }}</p>
         </div>
         {% endfor %}
       </div>
 
       <!-- Kalenderns innehåll -->
       <div class="calendar-body">
-        {% for date in week_dates %}
+        {% for date in week %}
         <div class="calendar-day">
-          {% for chore in chores %} {% if chore.date == date %}
-          <!-- Visa Chore på rätt dag -->
+          {% for chore_obj in chores %}
+          {% for chore in chore_obj["chores"] %} {% if chore.date == date["date"] %}
+          
+          <!-- Visa Chore på rätt dag , -->
+          <a href={{ url_for('child.child_profile', child_id=chore_obj['child']) }}>
           <div class="chore-container">
             <div class="child-avatar">
               <img src="#" alt="{{ chore.assignment.child.avatar_url }}" />
@@ -58,7 +62,8 @@
               </form>
             </div>
           </div>
-          {% endif %} {% endfor %}
+          </a>
+          {% endif %} {% endfor %} {% endfor %}
         </div>
         {% endfor %}
       </div>
