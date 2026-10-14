@@ -28,24 +28,29 @@
           {% for chore_obj in chores %}
           {% for chore in chore_obj["chores"] %} {% if chore.date == date["date"] %}
           
-          <!-- Visa Chore på rätt dag , -->
-          <a href={{ url_for('child.child_profile', child_id=chore_obj['child']) }}>
+          <!-- Visa Chore på rätt dag , -->          
           <div class="chore-container">
+            <a href={{ url_for('child.child_profile', child_id=chore_obj['child']) }}>
             <div class="child-avatar">
               <img src="#" alt="{{ chore.assignment.child.avatar_url }}" />
               <span class="child-name">
                 {{ chore.assignment.child.first_name }}
               </span>
+              </a>
             </div>
             <div class="chore">
               <p class="chore-title">{{ chore.assignment.chore.title }}</p>
 
               <!-- Stjärna för färdig syssla -->
+              {% if chore.date == today %}
               <form
                 method="POST"
+                
                 action="{{ url_for('chores.toggle', occurence_id=chore.id) }}"
+                
                 class="star-form"
               >
+              {% endif %}
                 <button
                   type="submit"
                   class="star-button"
@@ -62,7 +67,7 @@
               </form>
             </div>
           </div>
-          </a>
+          
           {% endif %} {% endfor %} {% endfor %}
         </div>
         {% endfor %}
