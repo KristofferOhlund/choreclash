@@ -30,12 +30,11 @@ def format_dates(dates:list) -> date:
     Args:
         dates (list): A list of date strings in the format "YYYY-MM-DD".
 
-    Returns:
-    return [datetime.strptime(date, "%Y-%m-%d").date() for date in dates]
-        list: A list of date objects.
+    Returns:list: A list of date objects.
+    
     """
-    raise NotImplementedError
-
+    return [datetime.strptime(date, "%Y-%m-%d").date() for date in dates]
+            
 def format_date(value:datetime) -> datetime.date:
     """
     Format a datetime or str to YYYY-MM-DD
@@ -51,7 +50,6 @@ def format_date(value:datetime) -> datetime.date:
         return datetime.strptime(date, format).date()
     date_str = datetime.strftime(value, format)
     return datetime.strptime(date_str, format).date()
-    
 
 def get_dates_in_current_week():
     """
@@ -94,6 +92,12 @@ def get_current_week()->list[tuple]:
         })
 
     return week
+
+def get_todays_date() -> datetime.date:
+    """
+    Return todays date in YYYY-MM-DD format
+    """
+    return datetime.today().date()
 
 def get_days_from_dates(dates: list):
     """
