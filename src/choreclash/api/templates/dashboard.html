@@ -45,9 +45,7 @@
               {% if chore.date == today %}
               <form
                 method="POST"
-                
                 action="{{ url_for('chores.toggle', occurence_id=chore.id) }}"
-                
                 class="star-form"
               >
               {% endif %}
