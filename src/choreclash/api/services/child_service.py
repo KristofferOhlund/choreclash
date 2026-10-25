@@ -85,5 +85,6 @@ def get_children(parent_id : int) -> list[Child]:
     db = DB()
     with db.get_session() as session:
         children = session.scalars(select(Child)
+                .join(Child.parent)
                 .where(Parent.id == parent_id)).all()
         return children

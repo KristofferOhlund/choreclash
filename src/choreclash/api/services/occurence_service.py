@@ -33,7 +33,6 @@ def create_chore_occurence(chore2child: list[Chore2Child], dates:list[datetime])
         print(f"Error creating chore2child: {e}")
         session.rollback()
 
-
 def get_chore_occurences(parent_id : int, child_id : int = None, start_date : datetime = None, end_date : datetime = None)-> list[ChoreOccurence]:
     """
     Return a list of ChoreOccurence.
@@ -62,6 +61,7 @@ def get_chore_occurences(parent_id : int, child_id : int = None, start_date : da
         occurences = session.scalars(select(ChoreOccurence)
                 .join(ChoreOccurence.assignment)
                 .join(Chore2Child.child)
+                .join(Child.parent)
                 .options(
                 selectinload(ChoreOccurence.assignment)
                 .selectinload(Chore2Child.chore),
@@ -77,83 +77,52 @@ def get_chore_occurences(parent_id : int, child_id : int = None, start_date : da
 
         return occurences
 
-
-def complete_chore_occurence(occurence_id : str = None, parent_id: str = None)-> None:
+def complete_chore_occurence(occurence_id : int = None, parent_id: int = None, child_id: int = None)-> None:
     """
     Complete a chore occurence based on occurence and parent ID
     Only chores with todays date can be completed.
 
     Params:
-        occurence_id: str: the ID of a ChoreOccurence
-        parent_id: str: the ID of a Parent
+        occurence_id: id: the ID of a ChoreOccurence
+        parent_id: id: the ID of a Parent
+        child_id: id: the ID of a Child
     """
 
     db = DB()
     with db.get_session() as db_session:
-        occurence = db_session.scalar(select(ChoreOccurence).where(
+        occurence = db_session.scalar(select(ChoreOccurence)
+                .join(ChoreOccurence.assignment)
+                .join(Chore2Child.child)
+                .join(Child.parent).where(
             ChoreOccurence.id == occurence_id,
-            Parent.id == parent_id
+            Parent.id == parent_id,
+            Child.id == child_id
             ))
         try:
             today = helpers.format_date(datetime.today())
             oc_date = helpers.format_date(occurence.date)
             if today == oc_date:
-                occurence.is_complete = True
+                occurence.is_complete = False if occurence.is_complete else True
             db_session.add(occurence)
             db_session.commit()
         except Exception as e:
             db_session.rollback()
             return("something went wrong", e)
 
-def check_daily_chores_complete(chores: list[ChoreOccurence]) -> list[str]: 
+def check_daily_chores_complete(parent_id: int, child_id: int, date: datetime.date = None)-> bool: 
     """
-    Return list of days where chores are complete.
-    If all chores on monday are complete, return [Monday]
-    If all chores for Monday and Thursday are complete, return ["Monday", "Thursday"]
+    Return True if chores for date are complete, else False
+    If no chores are found on current date, return False
+
+    Params:
+        parent_id : int: the ID of the parent
+        child_id: int: the ID of the child
+        day: datetime.date object defaults to None
     """
+    if not date:
+        date = helpers.get_todays_date()
+    chores_for_date = get_chore_occurences(parent_id=parent_id, child_id=child_id, start_date=date, end_date=date)
+    if all(chore.is_complete for chore in chores_for_date):
+        return True
+    return False
 
-    raise NotImplementedError
-    days = {
-        "Måndag": {
-            "chores": [],
-            "chores_complete" : False
-        },
-        "Tisdag": {
-            "chores": [],
-            "chores_complete" : False
-        },
-        "Onsdag": {
-            "chores": [],
-            "chores_complete" : False
-        },
-        "Torsdag": {
-            "chores": [],
-            "chores_complete" : False
-        },
-        "Fredag": {
-            "chores": [],
-            "chores_complete" : False
-        },
-        "Lördag": {
-            "chores": [],
-            "chores_complete" : False
-        },
-        "Södag": {
-            "chores": [],
-            "chores_complete" : False
-        },
-        
-    }
-
-    # Split chores by day
-    for chore in chores:
-        swedish_day = helpers.get_swedish_day(chore.date.strftime("%A"))
-        days[swedish_day].chores.append(chore)
-
-    for day in days:
-        if all(chore.is_complete for chore in day["chores"]):
-            day["chores_complete"] = True
-            # reward_service skapar reward objecct
-            # child id, chore id, date
-
-    return days
