@@ -67,24 +67,12 @@ def create():
 #     return redirect(url_for("rewards.rewards"))
 
 
-# @rewards_bp.route("/rewards/assign", methods=["GET", "POST"])
-# def assign():
-#     parent_id = session.get("parent_id")
-#     if not parent_id:
-#         flash("You must be logged in to access this page.", "error")
-#         return redirect(url_for("auth.login"))
+@rewards_bp.route("/rewards/assign", methods=["POST"])
+def assign():
+    parent_id = session.get("parent_id")
+    if not parent_id:
+        flash("You must be logged in to access this page.", "error")
+        return redirect(url_for("auth.login"))
 
-#     children = parent_service.get_children(parent_id)
-#     rewards = reward_service.get_rewards()
-
-#     if request.method == "POST":
-#         child_ids = request.form.getlist("child_id")
-#         chore_ids = request.form.getlist("chore_id")
-#         c2c_objects = chore2child_service.create_chore2child(child_ids=child_ids, chore_ids=chore_ids)
-#         dates = request.form.getlist("dates")
-#         occurence_service.create_chore_occurence(chore2child=c2c_objects, dates=dates)
-#         flash("Chore assigned successfully.", "success")
-#         return redirect(url_for("rewards.rewards"))
-
-#     return render_template("chore2child.html", rewards=chores, children=children)
+    return render_template("dashboard.html")
 

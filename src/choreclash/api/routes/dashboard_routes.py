@@ -36,11 +36,12 @@ def dashboard():
     today = get_todays_date()
 
     # All chores for a child have been completed
-    # Therefore assigns a reward to that child
-    assign_reward_to_child = request.args.get("assign_reward_to", type=int)
-    if assign_reward_to_child:
-        reward = reward_service.roll_reward()
-        reward_service.assign_reward(child_id=assign_reward_to_child, reward=reward)
+    # Therefore suggest a reward for that child
+    suggest_reward_to_child = request.args.get("suggest_reward_to_child", type=int)
+    if suggest_reward_to_child:
+        reward = {}
+        reward["reward"] = reward_service.roll_reward()
+        reward["child"] = next(filter(lambda child: child.id == suggest_reward_to_child, children), None) # använder next för att komma åt filter objektet 
 
     # All chores this week to display
     weekly_chore_occurences = []
@@ -59,4 +60,4 @@ def dashboard():
 
 
     return render_template("dashboard.html", 
-                           children_chores=weekly_chore_occurences, week=week, today=today, reward_offer=None)
+                           children_chores=weekly_chore_occurences, week=week, today=today, reward=reward if reward else None)

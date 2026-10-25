@@ -95,4 +95,9 @@ def assign_reward(child_id: int = None, reward: Reward = None):
         child_id: int: the child with ID to assign a reward to
         reward: Reward: A reward object to assign to child
     """
+    print(reward.id)
+    print(reward.title)
+    print(reward.description)
+    print(reward.reward_type)
+    print(reward.icon)
     raise NotImplementedError
