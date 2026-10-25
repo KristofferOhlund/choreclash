@@ -100,4 +100,4 @@ def toggle(occurence_id: int = None):
         occurence_service.complete_chore_occurence(occurence_id=occurence_id, parent_id=parent_id, child_id=child_id)
         daily_chores_complete = occurence_service.check_daily_chores_complete(parent_id=parent_id, child_id=child_id)
 
-        return redirect(url_for("dashboard.dashboard", assign_reward_to=child_id if daily_chores_complete else None))
+        return redirect(url_for("dashboard.dashboard", suggest_reward_to_child=child_id if daily_chores_complete else None))
