@@ -20,6 +20,8 @@ def get_child(parent_id : int = None, child_id: int = None) -> Child:
     db = DB()
     with db.get_session() as session:
         child = session.scalar(select(Child)
+                .join(Child.chore_assignments)
+                .join(Child.parent)
                 .options(
                 selectinload(Child.chore_assignments)
                 .selectinload(Chore2Child.chore),
