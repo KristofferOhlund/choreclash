@@ -89,13 +89,15 @@ def assign():
     return render_template("chore2child.html", chores=chores, children=children)
 
 @chores_bp.route("/chores/<int:occurence_id>/toggle", methods=["POST"])
-def toggle(occurence_id:str = None):
+def toggle(occurence_id: int = None):
+    child_id = int(request.form.get("child_id"))
     parent_id = session.get("parent_id")
     if not parent_id:
         flash("You must be logged in to access this page.", "error")
         return redirect(url_for("auth.login"))
     if request.method == "POST":        
         # Complete a chore
-        occurence_service.complete_chore_occurence(occurence_id=occurence_id, parent_id=parent_id)
+        occurence_service.complete_chore_occurence(occurence_id=occurence_id, parent_id=parent_id, child_id=child_id)
+        daily_chores_complete = occurence_service.check_daily_chores_complete(parent_id=parent_id, child_id=child_id)
 
-    return redirect(url_for("dashboard.dashboard"))
+        return redirect(url_for("dashboard.dashboard", assign_reward_to=child_id if daily_chores_complete else None))
