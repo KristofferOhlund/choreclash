@@ -13,7 +13,7 @@ class DB:
     def _get_engine(self):
         """Create engine in module scope"""
         if not self.engine:
-            self.engine = create_engine(self.resource, echo=True, future=True)
+            self.engine = create_engine(self.resource, future=True) # echo=True
         return self.engine
 
 
