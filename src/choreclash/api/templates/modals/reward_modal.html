@@ -1,0 +1,38 @@
+{% if reward_offer %}
+<dialog id="reward-modal" class="reward-modal">
+
+    <button type="button"
+            class="modal-close"
+            aria-label="Stäng belöningen">
+        &times;
+    </button>
+
+    <h2>Du klarade alla sysslor!</h2>
+    <p>Du har låst upp en belöning.</p>
+
+    <img src="{{ url_for(
+        'static',
+        filename='images/rewards/' ~ reward_offer.icon
+    ) }}"
+         alt="{{ reward_offer.title }}">
+
+    <h3>{{ reward_offer.title }}</h3>
+    <p>{{ reward_offer.description }}</p>
+
+    {# <form method="POST"
+          action="{{ url_for('rewards.claim') }}">
+        <input type="hidden"
+               name="child_id"
+               value="{{ child.id }}">
+
+        <input type="hidden"
+               name="reward_id"
+               value="{{ reward_offer.id }}">
+
+        <button type="submit" class="claim-button">
+            Claim
+        </button>
+    </form> #}
+
+</dialog>
+{% endif %}
