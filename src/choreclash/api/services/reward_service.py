@@ -4,6 +4,7 @@ Reward service module for managing rewards.
 from flask import session
 from choreclash.models.reward import Reward
 from choreclash.db.db import DB
+from random import randint
 
 
 def get_reward(reward_id: str):
@@ -76,3 +77,22 @@ def create_reward(reward_data: dict):
     except Exception as e:
         print(f"Error creating reward: {e}")
         session.rollback()
+
+def roll_reward()-> Reward:
+    """
+    Roll reward
+    """
+    rewards_in_db = get_rewards()
+    if rewards_in_db:
+        return rewards_in_db[randint(a=0, b=len(rewards_in_db) -1)]
+
+
+def assign_reward(child_id: int = None, reward: Reward = None):
+    """
+    Assign reward to child
+
+    Params:
+        child_id: int: the child with ID to assign a reward to
+        reward: Reward: A reward object to assign to child
+    """
+    raise NotImplementedError
