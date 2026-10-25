@@ -1,4 +1,4 @@
-{% if reward_offer %}
+{% if reward %}
 <dialog id="reward-modal" class="reward-modal">
 
     <button type="button"
@@ -7,32 +7,32 @@
         &times;
     </button>
 
-    <h2>Du klarade alla sysslor!</h2>
+    <h2>Bra jobbat {{ reward['child'].first_name }} Du klarade alla sysslor!</h2>
     <p>Du har låst upp en belöning.</p>
 
     <img src="{{ url_for(
         'static',
-        filename='images/rewards/' ~ reward_offer.icon
+        filename='images/rewards/' ~ reward.icon
     ) }}"
-         alt="{{ reward_offer.title }}">
+         alt="{{ reward['reward'].title }}">
 
-    <h3>{{ reward_offer.title }}</h3>
-    <p>{{ reward_offer.description }}</p>
+    <h3>{{ reward['reward'].title }}</h3>
+    <p>{{ reward['reward'].description }}</p>
 
-    {# <form method="POST"
-          action="{{ url_for('rewards.claim') }}">
+    <form method="POST"
+          action="{{ url_for('rewards.assign') }}">
         <input type="hidden"
                name="child_id"
-               value="{{ child.id }}">
+               value="{{ reward['child'].id }}">
 
         <input type="hidden"
                name="reward_id"
-               value="{{ reward_offer.id }}">
+               value="{{ reward['child'].id }}">
 
         <button type="submit" class="claim-button">
             Claim
         </button>
-    </form> #}
+    </form>
 
 </dialog>
 {% endif %}
