@@ -25,12 +25,15 @@
       <div class="calendar-body">
         {% for date in week %}
         <div class="calendar-day">
-          {% for chore_obj in chores %}
-          {% for chore in chore_obj["chores"] %} {% if chore.date == date["date"] %}
+          {% for child in children_chores %}
+          {% if date["date"] == today and child["reward"] %}
+          <div>Congrats {{ child["child"].first_name}} </div>
+          {% endif %}
+          {% for chore in child["chores"] %} {% if chore.date == date["date"] %}
           
           <!-- Visa Chore på rätt dag , -->          
           <div class="chore-container">
-            <a href={{ url_for('child.child_profile', child_id=chore_obj['child']) }}>
+            <a href={{ url_for('child.child_profile', child_id=child['child'].id) }}>
             <div class="child-avatar">
               <img src="#" alt="{{ chore.assignment.child.avatar_url }}" />
               <span class="child-name">
@@ -48,6 +51,7 @@
                 action="{{ url_for('chores.toggle', occurence_id=chore.id) }}"
                 class="star-form"
               >
+              <input type="hidden" name="child_id", value="{{ child['child'].id }}" >
               {% endif %}
                 <button
                   type="submit"
@@ -65,7 +69,9 @@
               </form>
             </div>
           </div>
-          
+          <!-- If childs chore for today are complete -->
+            
+
           {% endif %} {% endfor %} {% endfor %}
         </div>
         {% endfor %}
