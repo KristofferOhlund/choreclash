@@ -1,8 +1,9 @@
 from choreclash.db.db import Base
 from typing import List, Optional
 from sqlalchemy.orm import Mapped, mapped_column, relationship
-from sqlalchemy import String, ForeignKey
-from datetime import datetime as date_type # to avoid sqlalchemy date
+from sqlalchemy import String, ForeignKey, Boolean, DateTime
+from datetime import datetime 
+from choreclash.models import Child
 
 class Reward(Base):
     """
@@ -19,6 +20,12 @@ class Reward(Base):
     description: Mapped[str] = mapped_column(String(100))
     reward_type: Mapped[str] = mapped_column(String(20))
     icon: Mapped[str] = mapped_column(String(30), default="default_icon.png")
+    
+    # Reward is assigned to child
+    assignments: Mapped[List["Reward2Child"]] = relationship(
+        back_populates="reward",
+        cascade="all, delete-orphan"
+    )
 
 class Reward2Child(Base):
     """
@@ -37,14 +44,18 @@ class Reward2Child(Base):
     id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
     child_id: Mapped[int] = mapped_column(ForeignKey("child_table.id"))
     reward_id: Mapped[int] = mapped_column(ForeignKey("reward_table.id"))
-    
+
     # Relationships allows to pass Objects directly insted of object.id
-    occurrences: Mapped[List["RewardOccurence"]] = relationship(
-        back_populates="reward",
-        cascade="all, delete"
+    child: Mapped[List["Child"]] = relationship(back_populates="reward_assignments")
+
+    reward: Mapped[List["Reward"]] = relationship(back_populates="assignments")
+
+    occurrences: Mapped[List["RewardOccurrence"]] = relationship(
+        back_populates="assignment",
+        cascade="all, delete-orphan"
     )
 
-class RewardOccurence(Base):
+class RewardOccurrence(Base):
     """
     ChoreOccuRewardOccurencerence model represents a specific occurrence of a reward assigned to a child.
     It includes details such as the date of the occurrence, status such as used, unused,
@@ -60,6 +71,8 @@ class RewardOccurence(Base):
 
     id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
     reward_2_child_id: Mapped[int] = mapped_column(ForeignKey("reward_2_child_table.id"))
-    used: Mapped[bool] = mapped_column(default=False)
-    date: Mapped[Optional[date_type]] = mapped_column(default=date_type.today)
-    reward: Mapped["Reward2Child"] = relationship(back_populates="occurrences")
+    used: Mapped[bool] = mapped_column(Boolean, default=False)
+    used_at: Mapped[datetime] = mapped_column(DateTime)
+    assigned_at: Mapped[Optional[datetime]] = mapped_column(default=datetime.today)
+
+    assignment: Mapped["Reward2Child"] = relationship(back_populates="occurrences")
