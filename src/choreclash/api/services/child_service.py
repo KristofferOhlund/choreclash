@@ -20,7 +20,6 @@ def get_child(parent_id : int = None, child_id: int = None) -> Child:
     db = DB()
     with db.get_session() as session:
         child = session.scalar(select(Child)
-                .join(Child.chore_assignments)
                 .join(Child.parent)
                 .options(
                 selectinload(Child.chore_assignments)
@@ -73,8 +72,12 @@ def create_child(child_data: dict):
 
     with db.get_session() as session:
         new_child = Child(**child_data)
-        session.add(new_child)
-        session.commit()
+        try:
+            session.add(new_child)
+            session.commit()
+        except Exception as e:
+            session.rollback()
+            return f"Something went wrong when trying to create child with: {child_data}"
 
 def get_children(parent_id : int) -> list[Child]:
     """
