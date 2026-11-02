@@ -2,6 +2,11 @@ from choreclash.db.db import DB
 from sqlalchemy.orm import Session
 import choreclash.models as models
 import json
+import os
+
+
+if "choreclash.db" in os.listdir(os.getcwd()):
+    raise FileExistsError(f"Filen choreclash.db finns redan, ta bort för att köra dml.py")
 
 # Get engine object
 engine = DB()._get_engine()
