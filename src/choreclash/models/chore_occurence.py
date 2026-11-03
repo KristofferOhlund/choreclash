@@ -1,11 +1,9 @@
 from choreclash.db.db import Base
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy import ForeignKey
-from datetime import datetime, date as date_type
+from datetime import date as date_type
 from typing import TYPE_CHECKING, Optional
 if TYPE_CHECKING:
-    from choreclash.models.parent import Child
-    from choreclash.models.chore_template import ChoreTemplate
     from choreclash.models.chore2child import Chore2Child
 
 class ChoreOccurence(Base):
