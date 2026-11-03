@@ -38,8 +38,8 @@ def dashboard():
     # All chores for a child have been completed
     # Therefore suggest a reward for that child
     suggest_reward_to_child = request.args.get("suggest_reward_to_child", type=int)
+    reward = {}
     if suggest_reward_to_child:
-        reward = {}
         reward["reward"] = reward_service.roll_reward()
         reward["child"] = next(filter(lambda child: child.id == suggest_reward_to_child, children), None) # använder next för att komma åt filter objektet 
 

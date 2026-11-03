@@ -1,9 +1,9 @@
 from flask import (
-    Blueprint, redirect, render_template, request, flash, url_for, session)
+    Blueprint, redirect, render_template, request, flash, url_for, session, jsonify)
 
 from choreclash.db.db import DB
 from choreclash.api.services import (
-    reward_service, parent_service, chore2child_service, occurence_service)
+    reward_service, child_service)
 
 
 rewards_bp = Blueprint(
@@ -74,5 +74,13 @@ def assign():
         flash("You must be logged in to access this page.", "error")
         return redirect(url_for("auth.login"))
 
-    return render_template("dashboard.html")
+    child_id = request.form.get("child_id", type=int)
+    reward_id = request.form.get("reward_id", type=int)
 
+    if child_id and reward_id:
+        # get child object
+        child = child_service.get_child(parent_id=parent_id, child_id=child_id)
+        
+        reward_service.assign_reward(child_object=child, reward_id=reward_id)
+
+    return redirect(url_for("dashboard.dashboard"))
