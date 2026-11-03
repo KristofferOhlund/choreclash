@@ -20,6 +20,9 @@
         </h3>
 
         <div class="planning-card">
+            <h3>
+            Sysslor
+            </h3>
             <p>
                 {% if child.chore_assignments %}
             <div class="table-container">
@@ -60,6 +63,53 @@
             <form method="POST" action="{{ url_for('child.delete_child', child_id=child.id) }}">
                 <button type="submit" class="game-button danger">RADERA PROFIL</button>
             </form>
+
+        </div>
+        <!--BELÖNINGAR-->
+        <div class="planning-card">
+            <h3>
+            Belöningar
+            </h3>
+            <p>
+                {% if child.reward_assignments %}
+            <div class="table-container">
+                <table class="game-table">
+                    <thead>
+                        <tr>
+                            <th>Belöning</th>
+                            <th>Tilldelades</th>
+                            <th>Har använts</th>
+                            <th>Användes</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        {% for reward2child in child.reward_assignments %}
+                        {% for occurrence in reward2child.occurrences %}
+                        <tr>
+                            <td>{{ occurrence.assignment.reward.title }}</td>
+                            <td>{{ occurrence.assigned_at }}</td>
+                            <td>
+                                {% if occurrence.used %}
+                                <span class="status-icon" title="Färdig" aria-label="Färdig">✅</span>
+                                {% else %}
+                                <span class="status-icon" title="Inte färdig" aria-label="Inte färdig">⭕</span>
+                                {% endif %}
+                            </td>
+                            <td>{{ occurrence.used_at }}</td>
+                        </tr>
+                        {% endfor %}
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% else %}
+            Inga sysslor tilldelade.
+            {% endif %}
+            </p>
+            {# <form method="POST" action="#">
+                <button type="submit" class="game-button danger">RADERA PROFIL</button>
+            </form> #}
 
         </div>
     </div>

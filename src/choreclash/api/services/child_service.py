@@ -22,12 +22,16 @@ def get_child(parent_id : int = None, child_id: int = None) -> Child:
         child = session.scalar(select(Child)
                 .join(Child.parent)
                 .options(
+                # Chores
                 selectinload(Child.chore_assignments)
                 .selectinload(Chore2Child.chore),
                 selectinload(Child.chore_assignments)
                 .selectinload(Chore2Child.occurrences),
+
+                # Rewards
                 selectinload(Child.reward_assignments)
-                .selectinload(Reward2Child.occurrences),
+                .selectinload(Reward2Child.occurrences)
+                .selectinload(RewardOccurrence.assignment),
                 selectinload(Child.reward_assignments)
                 .selectinload(Reward2Child.reward))
         .where(
