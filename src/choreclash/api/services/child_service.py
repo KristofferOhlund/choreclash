@@ -1,7 +1,7 @@
 """
 Child service module for managing children.
 """
-from choreclash.models import Child, Chore2Child, Parent
+from choreclash.models import Child, Chore2Child, Parent, Reward2Child, Reward, RewardOccurrence
 from choreclash.db.db import DB
 from sqlalchemy import select
 from sqlalchemy.orm import selectinload
@@ -25,7 +25,11 @@ def get_child(parent_id : int = None, child_id: int = None) -> Child:
                 selectinload(Child.chore_assignments)
                 .selectinload(Chore2Child.chore),
                 selectinload(Child.chore_assignments)
-                .selectinload(Chore2Child.occurrences))
+                .selectinload(Chore2Child.occurrences),
+                selectinload(Child.reward_assignments)
+                .selectinload(Reward2Child.occurrences),
+                selectinload(Child.reward_assignments)
+                .selectinload(Reward2Child.reward))
         .where(
             Parent.id == parent_id, Child.id == child_id))
         return child
