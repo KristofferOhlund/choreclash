@@ -19,6 +19,6 @@ def index():
     if parent_id:
         # get parent object from database
         parent = parent_service.get_parent(parent_id)
-        return render_template("canvas.html", parent=parent)
+        return redirect(url_for("dashboard.dashboard"))
     return render_template("index.html")
     

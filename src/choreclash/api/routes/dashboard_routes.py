@@ -14,7 +14,7 @@ dashboard_bp = Blueprint(
 
 db = DB()
 
-@dashboard_bp.route("/dashboard/", methods=["GET"])
+@dashboard_bp.route("/dashboard", methods=["GET"])
 def dashboard():
     """
     Show all children chores
@@ -24,7 +24,7 @@ def dashboard():
     """
     parent_id = session.get("parent_id")
     if not parent_id:
-        return redirect("auth.login")
+        return redirect(url_for("auth.login"))
 
     # All children of parent
     children = child_service.get_children(parent_id=parent_id)
