@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block title %}
+Parents only | ChoreClash
+{% endblock %}
+
+{% block content %}
+<div class="game-card">
+<form method="POST" class="game-form" action="#">
+
+    <div class="form-group">
+        <label for="name">Förälder</label>
+
+        <input
+            name="parent"
+            class="game-input"
+            required
+        >
+    </div>
+
+    <div class="form-group">
+        <label for="password">Lösenord</label>
+
+        <input
+            type="password"
+            id="password"
+            name="password"
+            class="game-input"
+            required
+            autocomplete="current-password"
+        >
+    </div>
+
+    <button
+        type="submit"
+        class="game-button primary"
+    >
+        Verifiera
+    </button>
+
+</form>
+</div>
+
+{% endblock %}

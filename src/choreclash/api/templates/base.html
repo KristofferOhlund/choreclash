@@ -27,20 +27,21 @@
 <body>
 
     <header class="site-header">
+        {% if session.get("parent_id") %}
         <nav class="site-nav">
-            {% if session.get("parent_id") %}
                 <a
                     href="{{ url_for('dashboard.dashboard') }}"
                     class="site-logo"
                 >
                     CHORE<span>CLASH</span>
                 </a>
-            {% endif %}
-
             <div class="nav-links">
-
-                {% if session.get("parent_id") %}
-
+                <a
+                    href="{{ url_for('parent.auth') }}"
+                    class="site-logo"
+                >
+                    <span>Parent</span>
+                </a>
                     <form
                         method="POST"
                         action="{{ url_for('auth.logout') }}"
@@ -52,28 +53,9 @@
                             LOGGA UT
                         </button>
                     </form>
-
-                {% else %}
-
-                    <a
-                        href="{{ url_for('auth.login') }}"
-                        class="game-button secondary nav-button"
-                    >
-                        LOGGA IN
-                    </a>
-
-                    <a
-                        href="{{ url_for('auth.register') }}"
-                        class="game-button primary nav-button"
-                    >
-                        REGISTRERA
-                    </a>
-
-                {% endif %}
-
             </div>
-
         </nav>
+        {% endif %}
     </header>
 
 

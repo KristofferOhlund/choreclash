@@ -24,7 +24,7 @@ def login():
                 str(e),
                 "error"
                 )
-        return redirect(url_for("parent.canvas"))
+        return redirect(url_for("dashboard.dashboard"))
 
     return render_template("login.html")
 

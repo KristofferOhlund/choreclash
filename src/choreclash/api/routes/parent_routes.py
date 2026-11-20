@@ -13,6 +13,29 @@ parent_bp = Blueprint(
 
 db = DB()
 
+@parent_bp.route("/auth", methods=["GET", "POST"])
+def auth():
+    """
+    Only parents are allowed to access these pages
+    """
+    parent_id = session.get("parent_id")
+    if not parent_id:
+        flash("You must be logged in to access this page.", "error")
+        return redirect(url_for("auth.login"))
+    if request.method == "GET":
+        return render_template("parent_auth.html")
+
+    # Verify parent
+    if request.method == "POST":
+        parent = request.form.get("parent")
+        passw = request.form.get("password")
+        if parent == "krille" and passw == "pelle":
+            return redirect(url_for("parent.canvas"))
+        
+        flash("You must be a parent to access the parent page.", "error")
+        return redirect(url_for("dashboard.dashboard"))
+
+
 @parent_bp.get("/canvas")
 def canvas():
     parent_id = session.get("parent_id")
